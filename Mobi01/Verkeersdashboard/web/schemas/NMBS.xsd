@@ -1,0 +1,78 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="liveboard">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="station">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute type="xs:string" name="id"/>
+                                <xs:attribute type="xs:float" name="locationX"/>
+                                <xs:attribute type="xs:float" name="locationY"/>
+                                <xs:attribute type="xs:anyURI" name="URI"/>
+                                <xs:attribute type="xs:string" name="standardname"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="departures">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="departure" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="station"/>
+                                        <xs:element name="time">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:int">
+                                                        <xs:attribute type="xs:dateTime" name="formatted" use="optional"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="vehicle">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:anyURI" name="URI" use="optional"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="platform">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:byte">
+                                                        <xs:attribute type="xs:byte" name="normal" use="optional"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element type="xs:string" name="departureConnection"/>
+                                        <xs:element name="occupancy">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:anyURI" name="URI" use="optional"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:byte" name="id" use="optional"/>
+                                    <xs:attribute type="xs:short" name="delay" use="optional"/>
+                                    <xs:attribute type="xs:byte" name="canceled" use="optional"/>
+                                    <xs:attribute type="xs:byte" name="left" use="optional"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="number"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:float" name="version"/>
+            <xs:attribute type="xs:int" name="timestamp"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

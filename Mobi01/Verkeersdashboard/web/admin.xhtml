@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="extra_header">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+                <link href="css/jquery.json-viewer.css" rel="stylesheet"/>
+
+            </ui:define>            
+            <ui:define name="extra_header_end">
+                <link rel="stylesheet" href="css/admin.css"/>
+            </ui:define>
+
+            <ui:define name="content">
+
+                <!--Modal for settings-->
+                <div id="settingsModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 id="settingsTitle" class="modal-title">Laden...</h4>
+                                <button type="button" class="close url-close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h:form id="schemaForm">
+                                    <h:inputText id="schemaFile" binding="#{file}" class="hidden"></h:inputText>
+                                    <h:inputText id="schemaType" binding="#{type}" class="hidden"></h:inputText>
+                                    <h:commandButton id="schemaButton" class="btn btn-primary" value="Schema" action="#{downloadController.download(file.value, type.value)}"/>
+                                </h:form>
+                                <p id="settingsDescription"></p>
+                                <form>
+                                    <textarea id="urlField" name="urls" rows="5" cols="40">De data wordt geladen...</textarea>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" onClick="saveSettings()">Toepassen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div id="jsonModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 id="jsonTitle" class="modal-title">JSON</h4>
+                                <button type="button" class="close url-close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body" id='jsonModalBody'>
+                                <pre id="json-viewer"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container"> 
+
+                    <div id="authentication">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input type="password" name="value" id="passwordField" placeholder="password" class="col-sm-6"></input>  
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <button type="button" class="btn btn-primary" onclick="authenticate()">Log In</button>
+                            </div>
+                        </div>
+                        <div id="wrongpassword"></div>
+                    </div>
+
+
+                    <table class="table" id="statusTable">
+                        <thead>
+                            <tr>
+                                <th>Widget</th>
+                                <th>Widgetstatus</th>  
+                                <th>Last Updated</th>
+                                <th></th>
+                                <!--<th></th>-->
+                                <th>On/Off</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="statusBody">
+                        </tbody>
+                    </table>
+                </div>
+            </ui:define>
+
+            <ui:define name="scripts">
+                <!-- jQuery first, then Tether, then Bootstrap JS. -->
+                
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+                <!-- Latest compiled and minified JavaScript -->
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                <script src="js/jquery.json-viewer.js"></script>
+                <script src="js/admin.js"></script>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

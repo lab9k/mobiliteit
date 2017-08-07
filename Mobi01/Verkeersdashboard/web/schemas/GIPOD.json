@@ -1,0 +1,86 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "items": {
+        "id": "/items",
+        "properties": {
+            "cities": {
+                "id": "/items/properties/cities",
+                "items": {
+                    "id": "/items/properties/cities/items",
+                    "type": "string"
+                },
+                "type": "array"
+            },
+            "coordinate": {
+                "id": "/items/properties/coordinate",
+                "properties": {
+                    "coordinates": {
+                        "id": "/items/properties/coordinate/properties/coordinates",
+                        "items": {
+                            "id": "/items/properties/coordinate/properties/coordinates/items",
+                            "type": "number"
+                        },
+                        "type": "array"
+                    },
+                    "crs": {
+                        "id": "/items/properties/coordinate/properties/crs",
+                        "properties": {
+                            "properties": {
+                                "id": "/items/properties/coordinate/properties/crs/properties/properties",
+                                "properties": {
+                                    "name": {
+                                        "id": "/items/properties/coordinate/properties/crs/properties/properties/properties/name",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": {
+                                "id": "/items/properties/coordinate/properties/crs/properties/type",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": {
+                        "id": "/items/properties/coordinate/properties/type",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "description": {
+                "id": "/items/properties/description",
+                "type": "string"
+            },
+            "detail": {
+                "id": "/items/properties/detail",
+                "type": "string"
+            },
+            "endDateTime": {
+                "id": "/items/properties/endDateTime",
+                "type": "string"
+            },
+            "gipodId": {
+                "id": "/items/properties/gipodId",
+                "type": "integer"
+            },
+            "importantHindrance": {
+                "id": "/items/properties/importantHindrance",
+                "type": "boolean"
+            },
+            "owner": {
+                "id": "/items/properties/owner",
+                "type": "string"
+            },
+            "startDateTime": {
+                "id": "/items/properties/startDateTime",
+                "type": "string"
+            }
+        },
+        "type": "object"
+    },
+    "type": "array"
+}

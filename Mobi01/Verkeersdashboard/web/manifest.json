@@ -1,0 +1,6 @@
+{
+  "short_name": "Verkeersdashboard",
+  "name": "Verkeersdashboard Stad Gent",
+  "start_url": "Verkeersdashboard/?launcher=true",
+  "gcm_sender_id": "103953800507"
+}

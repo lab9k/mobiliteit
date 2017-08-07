@@ -1,0 +1,144 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "items": {
+        "id": "/items",
+        "properties": {
+            "address": {
+                "id": "/items/properties/address",
+                "type": "string"
+            },
+            "capacityRounding": {
+                "id": "/items/properties/capacityRounding",
+                "type": "integer"
+            },
+            "city": {
+                "id": "/items/properties/city",
+                "properties": {
+                    "id": {
+                        "id": "/items/properties/city/properties/id",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "id": "/items/properties/city/properties/name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "contactInfo": {
+                "id": "/items/properties/contactInfo",
+                "type": "string"
+            },
+            "description": {
+                "id": "/items/properties/description",
+                "type": "string"
+            },
+            "id": {
+                "id": "/items/properties/id",
+                "type": "integer"
+            },
+            "lastModifiedDate": {
+                "id": "/items/properties/lastModifiedDate",
+                "type": "string"
+            },
+            "latitude": {
+                "id": "/items/properties/latitude",
+                "type": "number"
+            },
+            "longitude": {
+                "id": "/items/properties/longitude",
+                "type": "number"
+            },
+            "name": {
+                "id": "/items/properties/name",
+                "type": "string"
+            },
+            "openingTimes": {
+                "id": "/items/properties/openingTimes",
+                "items": {
+                    "id": "/items/properties/openingTimes/items",
+                    "properties": {
+                        "days": {
+                            "id": "/items/properties/openingTimes/items/properties/days",
+                            "items": {
+                                "id": "/items/properties/openingTimes/items/properties/days/items",
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "from": {
+                            "id": "/items/properties/openingTimes/items/properties/from",
+                            "type": "string"
+                        },
+                        "to": {
+                            "id": "/items/properties/openingTimes/items/properties/to",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "parkingServer": {
+                "id": "/items/properties/parkingServer",
+                "properties": {
+                    "id": {
+                        "id": "/items/properties/parkingServer/properties/id",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "id": "/items/properties/parkingServer/properties/name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "parkingStatus": {
+                "id": "/items/properties/parkingStatus",
+                "properties": {
+                    "activeRoute": {
+                        "id": "/items/properties/parkingStatus/properties/activeRoute",
+                        "type": "string"
+                    },
+                    "availableCapacity": {
+                        "id": "/items/properties/parkingStatus/properties/availableCapacity",
+                        "type": "integer"
+                    },
+                    "lastModifiedDate": {
+                        "id": "/items/properties/parkingStatus/properties/lastModifiedDate",
+                        "type": "string"
+                    },
+                    "open": {
+                        "id": "/items/properties/parkingStatus/properties/open",
+                        "type": "boolean"
+                    },
+                    "suggestedCapacity": {
+                        "id": "/items/properties/parkingStatus/properties/suggestedCapacity",
+                        "type": "string"
+                    },
+                    "totalCapacity": {
+                        "id": "/items/properties/parkingStatus/properties/totalCapacity",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "suggestedFreeThreshold": {
+                "id": "/items/properties/suggestedFreeThreshold",
+                "type": "integer"
+            },
+            "suggestedFullThreshold": {
+                "id": "/items/properties/suggestedFullThreshold",
+                "type": "integer"
+            },
+            "totalCapacity": {
+                "id": "/items/properties/totalCapacity",
+                "type": "integer"
+            }
+        },
+        "type": "object"
+    },
+    "type": "array"
+}

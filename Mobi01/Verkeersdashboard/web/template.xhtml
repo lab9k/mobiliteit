@@ -1,0 +1,302 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="shortcut icon" href="https://stad.gent/sites/all/themes/custom/gentbe/favicon.png" type="image/vnd.microsoft.icon"></link>
+        <link rel="manifest" href="manifest.json"></link>
+        <meta name="google-signin-client_id" content="448457904750-f8m32le3uderqtsfm0g898l6f931l09k.apps.googleusercontent.com"/>
+        <meta name="google-signin-scope" content="profile email"></meta> 
+        <!--<h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>-->
+        <ui:insert name="extra_header">
+        </ui:insert>
+        <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,400italic" rel="stylesheet" type="text/css" />
+        <link type="text/css" rel="stylesheet" href="css/css_RZlTxqiLzBNc3p4RJfAcEs1Vhj7JCqu55vL0kej5G4U.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="css/css_Lt-JaJjAGwtOeB3oBa7H1M315o_Axb4UmtoAMe3sNbw.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="css/css_lzHpNxV7nBrVtVC1zJmr3NtW9uEoipJvw7iQr2NbokU.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="css/css_Ut1PzQRzcWMKem_aIpabzzZYLjWUrLAhQk_YD0_9qSI.css" media="print" />
+        <link type="text/css" rel="stylesheet" href="css/modal.css"></link>
+        <ui:insert name="extra_header_end">
+
+        </ui:insert>
+        <title>Verkeersdashboard Gent</title>
+
+    </h:head>
+
+    <h:body>
+        <script src="js/login.js"></script>
+        <script src="https://apis.google.com/js/platform.js"></script>
+        <div id="top">
+            <ui:insert name="top">
+                <div class="header-block-wrapper">
+                    <section class="top-section">
+                        <nav class="holder holder--alpha padding">
+                            <div class="l-row">
+                                <div class="brand">
+                                    <div class="brand__logo">
+                                        <a href="/">
+                                            <div class="brand__logo__inner">
+                                                <span>
+                                                    Stad.gent                      </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="brand__tagline">
+                                        <a href="/">
+                                            <div class="brand__tagline__inner">
+                                                <span>
+                                                    Stad.gent                      </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="thema_title">
+                                        <div class="vertical-align">
+                                            <span>Mobiliteitsdashboard</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="top-menu clearfix">
+                                    <div id="block-gent-base-tools-search" class="top-menu__item">
+                                        <div class="l-right"><a href="https://mobiliteit.stad.gent">Mobiliteit</a></div>
+                                    </div>
+                                    <div id="block-gent-auth-bar-bar" class="top-menu__item">       
+                                        <button onclick="document.getElementById('notificationprefs').style.display = 'block'" style="width:auto;" class="btn" id="notifications">Notifications</button>
+                                        <button onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;" class="btn" id="loginscreen">Log in</button>
+                                        <div id="id01" class="modal">
+
+                                            <div class="modal-content animate">
+                                                <div class="imgcontainer">
+                                                    <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
+                                                </div>
+
+                                                <div class="modalcontainer">
+                                                    <div class="fb-login-button" data-max-rows="1" id="facebooklogin" scope="email" data-size="xlarge" onlogin="checkLoginState()" data-show-faces="false" data-auto-logout-link="false"></div>
+                                                    <div class="g-signin2" id="googlelogin" data-onsuccess="onSignIn"></div>
+                                                    <div id="userName"></div>
+                                                    <button class="btn" id="googlelogout"  onclick="googleSignout()">Log out of Google</button>
+                                                    <button class="btn" id="facebooklogout"  onclick="facebookLogout()">Log out of Facebook</button>
+                                                </div>
+                                            </div>
+                                        </div>     
+                                        <div id='forecast' class='modal'>
+                                            <div class='modal-content-weather animate'>
+                                                <div class='imgcontainer'>
+                                                    <span onclick="document.getElementById('forecast').style.display = 'none'" class='close' title='Close Modal'>&times;</span>
+                                                </div>
+                                                <div class='modalcontainer' id="weatherforecast">
+                                                    <div class="row">
+                                                        <div class="col-sm-3 weatherforecast" id="weather0">
+                                                        </div>
+                                                        <div class="col-sm-3 weatherforecast" id="weather1">
+                                                        </div>
+                                                        <div class="col-sm-3 weatherforecast" id="weather2">
+                                                        </div>
+                                                        <div class="col-sm-3 weatherforecast" id="weather3">
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>    
+                                        </div>
+                                        <div id='notificationprefs' class='modal'>
+                                            <div class='modal-content animate'>
+                                                <div class='imgcontainer'>
+                                                    <span onclick="document.getElementById('notificationprefs').style.display = 'none'" class='close' title='Close Modal'>&times;</span>
+                                                </div>
+
+                                                <div class='modalcontainer notificationmodal' id='notificationprefscontent'>
+                                                    <label><input type="checkbox" name="checkbox" id="notify_firebase" value="value" onclick="saveNotifyMeansFirebase()"></input> Stuur webnotificaties</label>
+                                                    <label><input type="checkbox" name="checkbox" id="notify_mail" value="value" ></input> Stuur mailnotificaties</label>
+                                                    <label><input type="checkbox" name="checkbox" id="notify_rain" value="value"></input> Meld regen</label>
+                                                    <label><input type="checkbox" name="checkbox" id="notify_train" value="value"></input> Meld trein</label>
+                                                    <div id="treingegevens">
+                                                        Vertrekstation: <select id="departurestation">
+                                                            <option value="Gent-Sint-Pieters" selected="selected">Gent-Sint-Pieters</option>
+                                                            <option value="Gent-Dampoort">Gent-Dampoort</option>
+                                                        </select>
+                                                         Eindhalte: <input type="text" id="endstation" value="Tielt"/>
+                                                        Vertrekuur: <input type="text" id="departurehour" value="17:24"/>  
+                                                        Dag van de week: <select id="dayofweek">
+                                                            <option value="Maandag">Maandag</option>
+                                                            <option value="Dinsdag">Dinsdag</option>
+                                                            <option value="Woensdag">Woensdag</option>
+                                                            <option value="Donderdag">Donderdag</option>
+                                                            <option value="Vrijdag">Vrijdag</option>
+                                                            <option value="Zaterdag">Zaterdag</option>
+                                                            <option value="Zondag">Zondag</option>
+                                                        </select>
+                                                        <button class="btn" id="getTrains" onclick="timeChanged()">Zoek Treinen</button>
+                                                        <div id="actualDepartures">
+                                                            Verbindingen: 
+                                                      <table id="possibleDepartures">
+                                                            <thead>
+                                                            <th>Dag</th>
+                                                            <th>Uur</th> 
+                                                            <th>Vertrekstation</th>
+                                                            <th>Eindstation</th> 
+                                                            <th>Trein</th>
+                                                            <th></th>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                            </div>                                                     
+                                                        Geabboneerde Treinverbindingen :<table id="trainSubscriptions">
+                                                            <thead>
+                                                            <th>Dag</th>
+                                                            <th>Uur</th> 
+                                                            <th>Vertrekstation</th>
+                                                            <th>Eindstation</th> 
+                                                            <th>Trein</th>
+                                                            <th></th>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                    
+                                                    <button class="btn" id="savenotificationprefbtn"  onclick="saveNotificationPreferences()">Save</button>
+                                                </div>
+                                            </div>                                      
+                                        </div>
+                                    </div>
+                                    <div id="block-gent-auth-bar-bar" class="top-menu__item">
+                                        <div id="gent-auth-bar" class="gent-auth-bar clearfix block">
+                                            <div class="bar-wrapper">
+                                                <div id="profilepicture">                                            
+                                                    <!--Hier komt onze foto-->                                                                                          
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </nav>
+                        <div>
+                            <section class="holder">
+                                <div class="l-row breadcrumb-wrapper">
+                                    <h2 class="element-invisible">U bent hier</h2><ul class="nav nav--breadcrumb"><li><a href="https://mobiliteit.stad.gent/">Mobiliteit in Gent</a></li><li><span>Mobiliteitsdashboard</span></li></ul>
+                                </div>
+                            </section>
+
+                            <header class="site__header">
+                                <div class="mask ratio--header">
+                                    <div class="site__header__normal__title hidden-mobile">
+                                        <div class="l-row">
+                                            <!-- RSPEAK_START -->
+                                            <h1 id="page-title">Mobiliteitsdashboard stad Gent</h1>
+                                            <!-- RSPEAK_STOP -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </header>
+
+                            <div class="holder site__header__normal__title visible-mobile">
+                                <div class="l-row">
+                                    <h1 id="page-title">Mobiliteitsdashboard stad Gent</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                </div>
+            </ui:insert>
+        </div>
+
+        <div id="content" class="center_content holder holder-content padding--big main-content ">
+            <ui:insert name="content"></ui:insert>
+        </div>
+
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <section class="holder padding--big background--alpha border-top border-bottom">
+                    <div class="l-row">
+                        <!-- RSPEAK_START -->
+                        <div class="region region-content-bottom">
+                            <div class="l-primary">
+                                <div class="milli">
+                                    <div class="label-inline">
+                                        Een realisatie van <a href="https://mobiliteit.stad.gent">mobiliteit.stad.gent</a> in samenwerking met UGent
+                                    </div>
+                                </div>                                        
+                            </div>
+                        </div>
+                        <!-- RSPEAK_STOP -->
+                    </div>
+                </section>
+
+
+                <footer class="holder site__footer background--beta">
+                    <div class="l-row padding--big">
+                        <div id="block-gent-base-tools-gent-base-address-block" class="l-column js-height island island--gamma block block-gent-base-tools">
+
+                            <h3>Mobiliteitsbedrijf stad Gent</h3>
+
+                            <ul class="no-bullet-list">
+                                <li>
+                                    <!--<span>Stad Gent</span>-->
+                                    <span itemprop="streetAddress">St-Michielsplein 9</span><br/>
+                                    <span itemprop="addressLocality">9000 Gent</span>
+                                </li>
+                                <li class="milli">
+                                    <a href="https://mobiliteit.stad.gent/mobiliteitsbedrijf/contact">Contact</a>
+                                </li>
+                                <li class="milli ">
+                                    <a href="https://stad.gent/over-gent-en-het-stadsbestuur/vragen-suggesties-en-meldingen/juridische-info-en-privacy/">Juridische info en privacy</a>
+                                </li>
+                                <li class="milli ">
+                                    <a href="http://persruimte.stad.gent/">Persruimte Stad Gent</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="l-column js-height island island--gamma" style="position: right;">
+                            <div class="brand__footer__wrapper">
+                                <p class="brand__footer">Stad Gent</p>
+                                <p class="brand__footer__sub">
+                                    <span class="brand__footer__sub__text">In samenwerking met <a href="http://www.ugent.be">UGent</a></span>
+                                </p>
+                                <p class="brand__footer__sub">
+                                    <span class="brand__footer__sub__text">Bachelorproef 2017 | Jens Asselman, Robin Lievrouw, Kristof Neyt, Ian Van der Mijnsbrugge</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </ui:insert>
+        </div>
+
+        <div>
+            
+                <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+                <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
+                <script>
+                    // Initialize Firebase
+                    var config = {
+                        apiKey: "AIzaSyARlfe1LS1F36uGt8YmKkHHcbL4RJCvWQ8",
+                        authDomain: "verkeersdashboard-97910.firebaseapp.com",
+                        databaseURL: "https://verkeersdashboard-97910.firebaseio.com",
+                        projectId: "verkeersdashboard-97910",
+                        storageBucket: "verkeersdashboard-97910.appspot.com",
+                        messagingSenderId: "382382705211"
+                    };
+                    firebase.initializeApp(config);
+                </script>
+            <script src="js/webNotification.js"></script>
+            <ui:insert name="scripts" >
+                
+
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

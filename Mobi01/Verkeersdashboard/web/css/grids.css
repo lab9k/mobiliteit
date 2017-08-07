@@ -1,0 +1,59 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11-mrt-2017, 22:20:48
+    Author     : krist
+*/
+
+.grid-stack-active {
+	border-right: dashed 1px #000000;
+	border-top : dashed 1px #000000;
+	padding-bottom: 30px;
+	min-height: 600px;
+}
+
+.grid-stack-inactive {
+	border-top : dashed 1px #888888;
+	background-color:#E2E2E2;
+	padding-bottom: 30px;
+	min-height: 600px;
+}
+
+.grid-stack-item-content {
+	margin: 0px 0px 4px 0px;
+	text-align: left;
+	border-collapse:collapse;
+	border-radius: 5px 5px 0px 0px;
+	background: #FFFFFF;
+	overflow-x:hidden;
+	overflow-y:hidden;
+	border: 1px solid #a5d2ff;
+}
+
+.grid-stack .grid-stack-placeholder > .placeholder-content {
+  border: 1px dashed darkgray;
+}
+
+.targetslide {
+  display: none;
+  background: rgb(217,83,79);
+}
+
+.row-centered {
+    text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    text-align:left;
+}
+
+@media (max-width: 991px) {
+  .col-centered {
+    display: block;
+  }
+}

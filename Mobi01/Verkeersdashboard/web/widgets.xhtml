@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="extra_header">
+                <!-- Bootstrap CSS -->
+                <!-- Latest compiled and minified CSS -->
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+                <link rel="stylesheet" href="css/weather-icons.css"/>
+                <link rel="stylesheet" href="css/weather-icons-wind.css"/>
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+                <link rel="stylesheet" href="css/leaflet-routing-machine.css" />
+                <link rel="stylesheet" href="css/Control.Geocoder.css" />
+                <link rel="stylesheet" href="css/MarkerCluster.css"/>
+                <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"/>
+                <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
+                <link rel="stylesheet" href="css/gridstack-3_0.min.css" />
+                <link rel="stylesheet" href="css/gridstack-extra-3_0.min.css" />
+                <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+
+            </ui:define>
+
+            <ui:define name="extra_header_end">
+                <link rel="stylesheet" href="css/grids.css"/>
+                <link rel="stylesheet" href="css/widgets-style.css"/>
+            </ui:define>
+
+            <ui:define name="content">
+                <!-- Modal for leaflet expanded map -->
+                <div id="leafletModalDialog" class="modal">
+                    <div class="modal-content modal-content-leaflet animate" >
+                        <div class="imgcontainer">
+                            <span id="dialogclose" class="close" title="Close Modal">&times;</span>
+                        </div>
+                        <div class="modalcontainer" id="leafletcontainerPopup" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row row-centered">
+                        <div class="col-md-9 col-centered">
+                            <div id="status"></div>
+                            <div class="row">
+                                <button onclick="editwidgets()" type="button" id="buttoneditwidgets" class="btn btn-primary btn-lg" aria-label="Edit widgets" >
+                                    <span id="glyphSpanEditWidgetsButton"  class="glyphicon glyphicon-pencil"></span> Pas widgets aan
+                                </button>
+                                <button type="button" id="loadConfigButton" onclick="loadConfiguration()" class="btn btn-primary btn-lg" aria-label="Load Configuration" >
+                                    <span id="glyphSpanloadConfigButton" class="glyphicon glyphicon-th"></span> Laad configuratie
+                                </button>
+                                <button type="button" id="factorySettings" onclick="loadDefaultConfiguration(true)" class="btn btn-primary btn-lg" aria-label="Zet standaardinstellingen terug" >
+                                    <span id="glyphSpanFactorySettings" class="glyphicon glyphicon-retweet"></span> Standaard
+                                </button>
+                            </div>
+                            <div class="row">
+                                <div id="userInstructionsEditMode" class="col-md-12">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="dashboard" class="container-fluid">
+                    <div class="row row-centered">
+                        <div id="slide" class="targetslide col-md-3" aria-expanded="false" style="">
+                            <div class="header-title text-nowrap">
+                                <h4>Verborgen widgets</h4>
+                            </div>
+                            <div class="inactive-widgets">		
+                                <div id="grid-inactive-widgets" class="grid-stack grid-stack-3 ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="active-widgets transparent col-md-9 col-centered">
+                            <div class="header-title">
+                                <h4>Actieve widgets</h4>
+                            </div>
+                            <div id="grid-active-widgets" class="grid-stack grid-stack-9">              
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </ui:define>
+
+            <ui:define name="scripts">
+                <!-- jQuery first, then Tether, then Bootstrap JS. -->
+                <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.js" ></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                <!--<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>-->
+                <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+                <script src="js/jquery.ui.touch-punch.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+                <!-- Latest compiled and minified JavaScript -->
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+                <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+                <script src="js/leaflet.markercluster.js"></script>
+                <script src="js/geolocate.js"></script>
+                <script src="js/leaflet-routing-machine.js"></script>
+                <script src="js/lrm-graphhopper-1.1.2.js"></script>
+                <script src="js/Control.Geocoder.js"></script>
+
+                <script src="js/grids.js"></script>
+                <script src="js/widgets.js"></script>
+
+
+                <script type="text/javascript" src='js/gridstack-3_0.js'></script>
+                <script type="text/javascript" src='js/gridstack.jQueryUI.min.js'></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

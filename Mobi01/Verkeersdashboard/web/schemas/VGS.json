@@ -1,0 +1,164 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "items": {
+        "id": "/items",
+        "properties": {
+            "city": {
+                "id": "/items/properties/city",
+                "properties": {
+                    "id": {
+                        "id": "/items/properties/city/properties/id",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "id": "/items/properties/city/properties/name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "connectivityType": {
+                "id": "/items/properties/connectivityType",
+                "type": "string"
+            },
+            "description": {
+                "id": "/items/properties/description",
+                "type": "string"
+            },
+            "dimensions": {
+                "id": "/items/properties/dimensions",
+                "properties": {
+                    "height": {
+                        "id": "/items/properties/dimensions/properties/height",
+                        "type": "integer"
+                    },
+                    "unit": {
+                        "id": "/items/properties/dimensions/properties/unit",
+                        "type": "string"
+                    },
+                    "width": {
+                        "id": "/items/properties/dimensions/properties/width",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "id": {
+                "id": "/items/properties/id",
+                "type": "integer"
+            },
+            "location": {
+                "id": "/items/properties/location",
+                "properties": {
+                    "unit": {
+                        "id": "/items/properties/location/properties/unit",
+                        "type": "string"
+                    },
+                    "x": {
+                        "id": "/items/properties/location/properties/x",
+                        "type": "number"
+                    },
+                    "y": {
+                        "id": "/items/properties/location/properties/y",
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            },
+            "name": {
+                "id": "/items/properties/name",
+                "type": "string"
+            },
+            "parkingServer": {
+                "id": "/items/properties/parkingServer",
+                "properties": {
+                    "id": {
+                        "id": "/items/properties/parkingServer/properties/id",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "id": "/items/properties/parkingServer/properties/name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "vmsDisplays": {
+                "id": "/items/properties/vmsDisplays",
+                "items": {
+                    "id": "/items/properties/vmsDisplays/items",
+                    "properties": {
+                        "location": {
+                            "id": "/items/properties/vmsDisplays/items/properties/location",
+                            "properties": {
+                                "unit": {
+                                    "id": "/items/properties/vmsDisplays/items/properties/location/properties/unit",
+                                    "type": "string"
+                                },
+                                "x": {
+                                    "id": "/items/properties/vmsDisplays/items/properties/location/properties/x",
+                                    "type": "integer"
+                                },
+                                "y": {
+                                    "id": "/items/properties/vmsDisplays/items/properties/location/properties/y",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "logicalDimensions": {
+                            "id": "/items/properties/vmsDisplays/items/properties/logicalDimensions",
+                            "properties": {
+                                "height": {
+                                    "id": "/items/properties/vmsDisplays/items/properties/logicalDimensions/properties/height",
+                                    "type": "integer"
+                                },
+                                "unit": {
+                                    "id": "/items/properties/vmsDisplays/items/properties/logicalDimensions/properties/unit",
+                                    "type": "string"
+                                },
+                                "width": {
+                                    "id": "/items/properties/vmsDisplays/items/properties/logicalDimensions/properties/width",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "name": {
+                            "id": "/items/properties/vmsDisplays/items/properties/name",
+                            "type": "string"
+                        },
+                        "physicalDimensions": {
+                            "id": "/items/properties/vmsDisplays/items/properties/physicalDimensions",
+                            "properties": {
+                                "height": {
+                                    "id": "/items/properties/vmsDisplays/items/properties/physicalDimensions/properties/height",
+                                    "type": "integer"
+                                },
+                                "unit": {
+                                    "id": "/items/properties/vmsDisplays/items/properties/physicalDimensions/properties/unit",
+                                    "type": "string"
+                                },
+                                "width": {
+                                    "id": "/items/properties/vmsDisplays/items/properties/physicalDimensions/properties/width",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": {
+                            "id": "/items/properties/vmsDisplays/items/properties/type",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            }
+        },
+        "type": "object"
+    },
+    "type": "array"
+}
