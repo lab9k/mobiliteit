@@ -1,0 +1,595 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 2, 2017, 2:21:27 PM
+    Author     : Sven Delanoye
+*/
+.modal-content {
+    background-color: #2D2D2D;
+    color: white;
+}
+
+.close:hover{
+    color: white;
+}
+.close{
+    color: white;
+}
+
+
+.my-column {
+    padding-right: 1px;
+    padding-left: 1px;
+}
+.my-jumbotron {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background:#2D2D2D !important;
+    color: white;
+}
+
+#map{
+    color: black;
+}
+
+
+.my-progress {
+    height: 30px;
+    margin-bottom: 10px;
+}
+.btn-primary {
+    background-color: #337ab7;
+}
+
+.btn-primary:hover {
+    background-color: #2A9FD5;
+}
+
+.my-progress-bar{
+    line-height: 30px;
+    /*    background-color:#286090;*/
+}
+
+.progress-bar-danger{
+    background-color:#d9534f;
+}
+
+.progress-bar-warning {
+    background-color: #f0ad4e;
+}
+
+.progress-bar-success {
+    background-color: #5cb85c;
+}
+
+.my-parking-bar{
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+}
+
+.my-navbar{
+    background:#222222 !important;
+}
+
+.navbarText{
+    color:white !important;
+}
+
+#myPageContent{
+    padding-right:15px !important;
+}
+
+.my-active{
+    background-color: #666692;
+}
+
+body{
+    background-color: #DCDCDC;
+    padding-right: 0 !Important;
+
+}
+
+@media screen and (min-width: 768px) {
+    body{
+        padding-right: 0 !Important;
+        background-image:url("../img/background1.jpg");
+        background-repeat:repeat-y;
+        background-size: 100%
+    }
+
+}
+
+.panel-heading{
+    /*    background:#375a7f !important;*/
+    background:#2A9FD5 !important;
+    color: white;
+}
+
+.panel{
+    /*    background:#375a7f !important;*/
+    background:#2D2D2D !important;
+    color: white;
+    border: none;
+}
+
+button{
+    color:black;
+}
+
+
+.w3-modal-content {
+    background-color: #2D2D2D;
+    color: white !important;
+}
+
+.w3-light-grey {
+    background-color: #2D2D2D !important;
+    color: white !important;
+}
+
+/*#myTable td,#myTable2 td{
+    color:black;
+}*/
+
+
+body > div{
+    margin-right: 0 !Important;
+    padding-left: 15px;
+}
+
+.greenbox {
+    width: 10px;
+    height: 10px;
+    background-color: green;
+} 
+
+.orangebox {
+    width: 10px;
+    height: 10px;
+    background-color: orange;
+} 
+
+.redbox {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+} 
+
+.my-form{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.my-loginbox{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+table, th, td {
+    padding: 2px;
+    /*    border-bottom: 1px solid black;*/
+    color:white;
+}
+
+.dropdown-menu{
+    color:black;
+}
+
+table, th, td {
+    padding: 2px;
+    /*    border-bottom: 1px solid black;*/
+}
+
+table {
+    border-spacing: 5px;
+    border-collapse:collapse; 
+    table-layout:fixed;
+}
+
+table td {
+    word-wrap:break-word;
+}
+
+#table-wrapper {
+    position:relative;
+}
+#table-scroll {
+    height:auto;
+    max-height:300px;
+    overflow:auto;  
+    margin-top:0px;
+}
+
+#table-scroll-large {
+    height:auto;
+    max-height:500px;
+    overflow:auto;  
+    margin-top:0px;
+}
+#table-wrapper table {
+    width:100%;
+}
+#table-wrapper table thead th .text {
+    position:absolute;   
+    top:-20px;
+    z-index:2;
+    height:20px;
+    width:35%;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+#dragIcon {
+    cursor: move;
+}
+
+.grid-item-content {
+    padding-bottom: 10px;
+}
+
+.packery-drop-placeholder {
+    outline: 3px dashed hsla(0, 0%, 0%, 0.5);
+    outline-offset: -6px;
+    -webkit-transition: -webkit-transform 0.2s;
+    transition: transform 0.2s;
+}
+
+#map {
+    height: 300px;
+    width: 100%;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.my-label {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+    font-weight: normal;
+}
+.my-input {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 17px;
+}
+
+.switch input {display:none;}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 17px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #222222; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 50px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    margin-top: 0px;
+}
+
+/* The navigation menu links */
+.sidenav label {
+    padding: 8px 8px 8px 32px;
+    /*    text-decoration: none;
+        font-size: 25px;*/
+    color: #FFF;
+    display: block;
+    /*    transition: 0.3s*/
+    white-space:nowrap;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav input:hover, .offcanvas input:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color:black;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+#settingsIcon{
+    font-size:2em;
+    color:black;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.PublicId
+{
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.3em;
+    padding: 0.2em;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+input.settingsText[type="text"] {
+     width: 100%; 
+     box-sizing: border-box;
+     -webkit-box-sizing:border-box;
+     -moz-box-sizing: border-box;
+}
+
+input{
+    color: black;
+}
+
+input.roundbar[type=range] {
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+}
+input.roundbar[type=range]:focus {
+    outline: none;
+}
+input.roundbar[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #6495ED;
+    border-radius: 1px;
+    border: 0px solid #000000;
+}
+input.roundbar[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 1px solid #4f5fc6;
+    height: 18px;
+    width: 18px;
+    border-radius: 25px;
+    background: #4f5fc6;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -7px;
+}
+input.roundbar[type=range]:focus::-webkit-slider-runnable-track {
+    background: #2497E3;
+}
+input.roundbar[type=range]::-moz-range-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #6495ED;
+    border-radius: 1px;
+    border: 0px solid #000000;
+}
+input.roundbar[type=range]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 1px solid #2497E3;
+    height: 18px;
+    width: 18px;
+    border-radius: 25px;
+    background: #6495ED;
+    cursor: pointer;
+}
+input.roundbar[type=range]::-ms-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+input.roundbar[type=range]::-ms-fill-lower {
+    background: #2497E3;
+    border: 0px solid #000000;
+    border-radius: 2px;
+    box-shadow: 0px 0px 0px #000000;
+}
+input.roundbar[type=range]::-ms-fill-upper {
+    background: #2497E3;
+    border: 0px solid #000000;
+    border-radius: 2px;
+    box-shadow: 0px 0px 0px #000000;
+}
+input.roundbar[type=range]::-ms-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 1px solid #2497E3;
+    height: 18px;
+    width: 18px;
+    border-radius: 25px;
+    background: #A1D0FF;
+    cursor: pointer;
+}
+input.roundbar[type=range]:focus::-ms-fill-lower {
+    background: #2497E3;
+}
+input.roundbar[type=range]:focus::-ms-fill-upper {
+    background: #2497E3;
+}
+
+
+
+#nmbsInput, #nmbsInput2 {
+    /*    background-image: url('/css/searchicon.png');  Add a search icon to input 
+        background-position: 10px 12px;  Position the search icon 
+        background-repeat: no-repeat;  Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+#myTable {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 18px; /* Increase font-size */
+}
+#myTable2 {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 18px; /* Increase font-size */
+}
+
+#myTable th, #myTable td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+#myTable2 th, #myTable2 td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+#myTable tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd; 
+}
+#myTable2 tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd; 
+}
+
+#myTable tr.header, #myTable tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
+}
+
+
+#myTable2 tr.header, #myTable2 tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
+}
+
+@media only screen and (max-width: 500px) {
+    #graph{
+        padding: 0 0 0 0;
+    }
+
+    #zoomiconGraph, #zoomiconMap{
+        visibility: hidden;
+    }
+}
+/*Coyote modal css van myPage popup */
+/* The Modal (background) */
+.Coyotemodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.Coyotemodal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.Coyoteclose {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.Coyoteclose:hover,
+.Coyoteclose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#CoyoteTable, #CoyoteTable2{
+    background-color:#3D3D3D;
+}

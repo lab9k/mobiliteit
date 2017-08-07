@@ -1,0 +1,1219 @@
+
+<html>
+    <head>
+        <title>Mobiliteit Gent</title>
+        <meta charset="UTF-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/img/carside.png">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <style>
+            .city {display:none}
+        </style>
+    </head>
+    <body>
+        <script>
+            // This is called with the results from from FB.getLoginStatus().
+            function statusChangeCallback(response) {
+                //console.log('statusChangeCallback');
+                //console.log(response);
+                // The response object is returned with a status field that lets the
+                // app know the current login status of the person.
+                // Full docs on the response object can be found in the documentation
+                // for FB.getLoginStatus().
+                if (response.status === 'connected') {
+                    // Logged into your app and Facebook.
+                    testAPI();
+                } else {
+                    // The person is not logged into your app or we are unable to tell.
+//                    document.getElementById('status').innerHTML = 'Please log ' +
+//                            'into this app.';
+                }
+            }
+
+            // This function is called when someone finishes with the Login
+            // Button.  See the onlogin handler attached to it in the sample
+            // code below.
+            function checkLoginState() {
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                    console.log("Loginstate");
+                    console.log(response);
+                });
+            }
+
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '802607779909180',
+                    cookie: true, // enable cookies to allow the server to access 
+                    // the session
+                    xfbml: true, // parse social plugins on this page
+                    version: 'v2.8' // use graph api version 2.8
+                });
+
+                // Now that we've initialized the JavaScript SDK, we call 
+                // FB.getLoginStatus().  This function gets the state of the
+                // person visiting this page and can return one of three states to
+                // the callback you provide.  They can be:
+                //
+                // 1. Logged into your app ('connected')
+                // 2. Logged into Facebook, but not your app ('not_authorized')
+                // 3. Not logged into Facebook and can't tell if they are logged into
+                //    your app or not.
+                //
+                // These three cases are handled in the callback function.
+
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+
+            };
+
+            // Load the SDK asynchronously
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            // Here we run a very simple test of the Graph API after login is
+            // successful.  See statusChangeCallback() for when this call is made.
+            function testAPI() {
+                //console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function (response) {
+
+                    console.log('Successful login for: ' + response.name);
+                    //console.log(response);
+                    //document.getElementById("messenger").setAttribute("data-ref",response.id );
+                });
+            }
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <script src="js/Settings.js"></script>
+        <script src="js/FillParking.js"></script>
+
+        <nav class="navbar navbar-inverse my-navbar navbar-static-top">
+            <div class="container-fluid" style="padding-left: 0px">
+                <ul class="nav navbar-nav my-navbar" style="padding-right: 10px;">
+                    <li><img src="img/GentLogo.png" style="height:50px"></li>
+                </ul>
+                <div class="navbar-header">
+                    <a id="settingsButton" class="navbar-brand clickable navbarText" onclick="clickedTab('id03', 'tablink3')" >
+                        <span class="glyphicon glyphicon-cog"></span>
+                        Instellingen
+                    </a>
+                </div>
+                <ul class="nav navbar-nav my-navbar">
+                    <li><a href="/index.html" class="navbarText">Overzicht</a></li>
+                    <li class="my-active"><a href="#" class="navbarText">Mijn Pagina</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="saveLocalStorageButton" style="display:none"><a class="navbarText clickable" onclick="postLocalStorage();"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a></li>
+                    <li><a onclick="fillIn();" href="#" class="navbarText"><span id="refreshIcon" class="fa fa-refresh "></span> Refresh</a></li>
+                    <li><a onClick="logUit();" class="navbarText clickable"><span class="glyphicon glyphicon-log-out"></span>  Uitloggen</a></li>
+                </ul>
+
+            </div>
+        </nav>
+        <div id="myPageContent">
+            <div class="row">
+                <div id="myPageTop" class="col-md-12" >
+                    <div>
+                        <div class="jumbotron my-jumbotron">
+                            <div  class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <table style="border-bottom: none; width:100%;">
+                                            <tr style="border-bottom: none">
+                                                <th style="border-bottom: none; width: 15%"></th>
+                                                <th style="border-bottom: none; width: 5%"></th> 
+                                                <th style="border-bottom: none; width: 15%"></th>
+                                            </tr>
+                                            <tr style="border-bottom: none">
+                                                <td  rowspan="4" style="border-bottom: none;">
+                                                    <img id="weatherimg" class="media-object" style="width:70%">
+                                                </td>
+                                                <td style="border-bottom: none;">
+                                                    <img id="tempimg" class="media-object" style="width:30px"> 
+                                                </td> 
+                                                <td style="border-bottom: none;">
+                                                    <div id="temp"></div>
+                                                </td>
+                                            </tr>
+                                            <tr style="border-bottom: none">
+                                                <td style="border-bottom: none;">
+                                                    <img id="windimg" class="media-object" style="width:30px"> 
+                                                </td>
+                                                <td style="border-bottom: none;">
+                                                    <div id="wind"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img id="humidimg" class="media-object" style="width:30px"> 
+                                                </td>
+                                                <td>
+                                                    <div id="humidity"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img id="rainimg" class="media-object" style="width:30px"> 
+                                                </td>
+                                                <td>
+                                                    <div id="rain"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <img id="profilepic" class="media-object" style="max-width:100%; max-height: 150px;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="weatherMessage">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-left:2%; padding-right:1%">
+                <div class="col-md-6">
+                    <div class="panel panel-primary" style="" >
+                        <div class="panel-heading">
+                            Mijn Paneel
+                            <div style="float:right" >
+                                <span class="glyphicon glyphicon-plus clickable" style="height:2%; text-font:arial;" onclick="clickedTab('id01', 'tablink')"> Toevoegen </span> 
+                            </div>
+
+
+                        </div>
+                        <div class="panel-body">
+                            <div id="MPPaneel">
+                                <table id="MPTable">
+
+                                </table>
+                            </div>
+                            <div id="MPBlueBikePaneel">
+                                <table id="MPBlueBikeTable">
+                                    <td style="width: 10%; padding-bottom: 5px">
+                                        <img id="dragIcon" src="img/bluebike.jpg" class="media-object" style="width:100%">
+                                    </td>
+                                    <td><div>Naam van de blue bike dinges</div>
+                                        <div class="progress my-progress">
+                                            <div id="avgFree" class="progress-bar progress-bar-success my-progress-bar" role="progressbar">
+                                            </div>
+                                            <div id="avgMaint" class="progress-bar progress-bar-warning my-progress-bar" role="progressbar">
+                                            </div>
+                                            <div id="avgUsed" class="progress-bar progress-bar-danger my-progress-bar" role="progressbar">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--De Lijn-->
+                    <div class="panel panel-primary" id="LijnMain">
+                        <div class="panel-heading">
+                            De Lijn
+                            <div style="float:right" >
+                                <i id="loadIcon" class="fa fa-refresh" style="display:none;"></i>
+                            </div>
+                            <div style="float:right" >
+                                <span class="glyphicon glyphicon-plus clickable" style="height:2%; text-font:arial;" onclick="clickedTab('id07', 'tablink7')"> Favorieten </span> 
+                            </div>
+                            
+                        </div>
+                      
+                            <div class="panel-body">
+                                <div id="table-scroll">
+                                    <table style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:50%;"></th>
+                                                <th style="width:50%;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="busses">
+                                            <tr>
+                                                <td><input id ="locationBox" name="groupLoc" type="radio" onchange="bussesLocation()"> Mijn Locatie </td>
+                                                <td>
+                                                    Radius: <label id="radiusLabel"></label> m
+                                                    <input type="range" class="roundbar" id="radiusBar" value="500" min="100" max="2000" step="100" onchange="showVal()" onmouseup="reloadBusses()">
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><input id="addressBox" name="groupLoc" type="radio" onchange="bussesAdress()" checked> Adres: <input id="addressLine" onkeydown = "if (event.keyCode === 13)
+                                                            document.getElementById('knopAdres').click()" type="text" value="Gent Sint-Pieters"> <input class="btn btn-primary" id="knopAdres" type="button" value="Zoek" onclick="bussesAdress()">
+                                                    <input class="btn btn-primary" id="LijnFavBtn" disabled type="button" value="Sla op als favoriet" title="Vraag eerst bussen op, daarna kan je locaties als favoriet instellen" onclick="saveLijn()">
+                                                </td>
+                                            </tr>        
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="table-wrapper">                                       
+                                    <div id="table-scroll">
+                                        <table style="width:100%;" >
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:15%;"></th>
+                                                    <th style="width:15%;"></th>
+                                                    <th style="width:35%;"></th>
+                                                    <th style="width:20%;"></th>
+                                                    <th style="width:15%;"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="busPers_main"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-primary" style="" >
+                        <div class="panel-heading">
+                            Mijn NMBS
+                            <div style="float:right" >
+                                <span class="glyphicon glyphicon-plus clickable" style="height:2%; text-font:arial;" onclick="clickedTab('id06', 'tablink6')"> Favorieten </span> 
+                            </div>
+
+
+                        </div>
+                        <div class="panel-body">
+
+                            <table>
+                                <tr>
+                                    <td style="width:10%">
+                                        <img  src="img/nmbs.jpg" class="media-object" style="width:100%" title="Treinen">
+                                    </td>
+                                    <td>
+                                        Uw persoonlijke NMBS route planner! Gelieve de velden in te vullen en op de 'Ok' knop te duwen.
+                                    </td>
+                                    
+                                </tr>
+                            </table>
+                            <div id="nmbsWarning" class="alert alert-warning" style="display:none">
+                                Gelieve een station uit de lijst te kiezen.
+                            </div>
+                            <div id="nmbsWarningDown" class="alert alert-warning" style="display:none">
+                                De NMBS services werken momenteel niet. Sorry voor het ongemak.
+                            </div>
+                            <table>
+                                <tr>
+                                    <td style="width:10%">
+                                        Van:  
+                                    </td>
+                                    <td style="width:90%">
+                                        <input id="NMBSOorsprong"> <button  class="btn btn-primary" onClick="clickedTab('id02', 'tablink2')">Selecteer uit lijst</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:10%">
+                                        Naar: 
+                                    </td>
+                                    <td style="width:90%">
+                                        <input id="NMBSBestemming"> <button  class="btn btn-primary" onClick="clickedTab('id05', 'tablink5')">Selecteer uit lijst</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:10%">
+                                        Tijdstip: 
+                                    </td>
+                                    <td style="width:90%">
+                                        <input id="NMBSTime" type="datetime-local"> <button  class="btn btn-primary"onClick="thisTime()">Nu</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td><button class="btn btn-primary" onClick="getNMBSRoutes()">Ok</button></td>
+                                    <td><button class="btn btn-primary" onClick="saveNMBS()">Sla op als favoriet</button></td>
+                                    <td>
+                                        <table>
+                                            <input type="radio" name="NMBSRadio" value="arrive">Aankomst<br>
+                                            <input type="radio" name="NMBSRadio" value="depart" checked>Vertrek<br>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                </tr>
+                            </table>
+
+
+                            <div id="table-wrapper">
+                                <div id="table-scroll">
+                                    <table style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:10%;"></th>
+                                                <th style="width:15%;"></th>
+                                                <th></th>
+                                                <th style="width:20%;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="trains_main">
+
+                                        </tbody>
+                                    </table>
+                                    <div id="trains_button">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Coyote -->
+
+                    <div class="panel panel-primary" style="" >
+                        <div class="panel-heading">
+                            Mijn Routes
+                            <div style="float:right" >
+                                <span class="glyphicon glyphicon-plus clickable" style="height:2%; text-font:arial;" onclick="clickedTab('id04', 'tablink4')"> Toevoegen </span> 
+                            </div>
+
+
+                        </div>
+                        <div class="panel-body">
+
+
+                            <!-- The Modal -->
+                            <div id="myCoyoteModal" class="Coyotemodal" >
+
+                                <!-- Modal content -->
+                                <div class="Coyotemodal-content" style="width:50%">
+                                    <span class="Coyoteclose">&times;</span>
+
+                                    <div id="CoyoteModalName"></div>
+
+                                    <div id="CoyoteModalLength"></div>
+                                    <div id="CoyoteModalNormalTime"></div>
+                                    <div id="CoyoteModalRealTime"></div>
+                                    <div id="CoyoteModalFileTime"></div>
+                                    <div class="progress">
+                                        <div id="CoyoteModalSuccess" class="progress-bar progress-bar-success" role="progressbar" style="width:64%">
+
+                                        </div>
+
+                                        <div id="CoyoteModalDanger" class="progress-bar progress-bar-danger" role="progressbar" style="width:36%">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div id="coyote_header">
+                            <table>
+                                <tr>
+                                    <td style="width: 10%; padding-bottom: 5px">
+                                        <img src="img/trafficjam.png" class="media-object" style="width:75%">
+                                    </td>
+                                    <td style="width: 30%; padding-bottom: 5px">
+                                        Al uw routes:
+                                    </td>
+                                    <td style="width:20%">
+
+                                    </td>
+                                    <td style="width: 30%; padding-bottom: 5px">
+                                        <div class="panel panel-info">
+                                            <div  id="CoyoteDelay" class="panel-body" style="color:#d9534f;">
+
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                            </table>
+
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:20%">
+                                        <div id="CoyoteRealTime" ></div>
+
+                                        <div id="CoyoteNormalTime" style="color:#5cb85c" ></div>                                        
+                                    </td>
+                                    <td style="width:60%">
+                                        <div class="progress">
+                                            <div id="CoyoteModalSuccessTotal" class="progress-bar progress-bar-success" role="progressbar" style="width:0%">
+
+                                            </div>
+
+                                            <div id="CoyoteModalDangerTotal" class="progress-bar progress-bar-danger" role="progressbar" style="width:100%">
+                                                    De coyote services werken momenteel niet. Sorry voor het ongemak.
+                                            </div>
+                                    </td>
+                                    <td style="width:20%">
+                                        <div id="CoyoteLength">
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <div id="coyote_main">
+                                    <table>
+
+                                    </table>
+                                    <table id="coyoteMP">
+
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="w3-container" onkeydown = "if (event.keyCode === 27)
+                                                           UpdateMP();">
+
+
+                <div id="id01" class="w3-modal">
+                    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+                        <header class="w3-container w3-blue"> 
+                            <span onclick="UpdateMP();" 
+                                  class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
+                            <h2>Info toevoegen</h2>
+                        </header>
+
+                        <div class="w3-bar w3-border-bottom">
+                            <button class="tablink w3-bar-item w3-button" onclick="openPanel(event, 'ParkingsMP')">Parkings</button>
+                            <button class="tablink w3-bar-item w3-button" onclick="openPanel(event, 'BlueBikeMP')">BlueBike</button>
+                        </div>
+
+                        <div id="ParkingsMP" class="w3-container city">
+                            <div style="margin-bottom:1%; margin-top:1%">
+                                Selecteer de parkings die je aan de persoonlijke pagina wilt toevoegen.
+                            </div>
+                            <div id="ParkingsMPDiv">
+                                <table id="ParkingsMPTable">
+
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div id="BlueBikeMP" class="w3-container city">
+                            <div style="margin-bottom:1%; margin-top:1%">
+                                Selecteer de BlueBike locaties die je aan de persoonlijke pagina wilt toevoegen.
+                            </div>
+                            <div id="BlueBikeMPDiv">
+                                <table id="BlueBikeTable">
+
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="w3-container w3-light-grey w3-padding">
+                            <button class="w3-btn w3-right w3-white w3-border" 
+                                    onclick="UpdateMP();">Sluiten</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="w3-container" onkeydown = "if (event.keyCode === 27)
+                                                           UpdateMP();">
+
+                <div id="id02" class="w3-modal">
+                    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+                        <header class="w3-container w3-blue"> 
+                            <span onclick="UpdateMP();" 
+                                  class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
+                            <h2>Beginstation toevoegen</h2>
+                        </header>
+
+                        <div class="w3-bar w3-border-bottom">
+                            <button class="tablink tablink2 w3-bar-item w3-button" onclick="openPanel(event, 'NMBSMP')">NMBS</button>
+                        </div>
+
+
+
+                        <div id="NMBSMP" class="w3-container city">
+                            <div style="padding-bottom:10px; padding-top:10px">Selecter het station waaruit u wilt vertrekken.</div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-10" style="padding-left:0px; padding-right:0px;">
+                                        <input type="text" id="nmbsInput" onkeyup="autoComplete('nmbsInput', 'myTable')" placeholder="Search for names..">
+                                    </div>
+                                    <div class="col-sm-2" style="padding-left:0px; padding-right:0px;">
+                                        <button onClick="SourceAdd();" style="height:50px; width:100%;"><span class="glyphicon glyphicon-plus"></span></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="table-wrapper">
+                                            <div id="table-scroll-large">
+                                                <table id="myTable">
+                                                    <tr class="header">
+                                                        <th style="width:100%;">Name</th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                        <div class="w3-container w3-light-grey w3-padding">
+                            <button class="w3-btn w3-right w3-white w3-border" 
+                                    onclick="UpdateMP();">Sluiten</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="w3-container" onkeydown = "if (event.keyCode === 27)
+                                                           UpdateMP();">
+                <div id="id03" class="w3-modal">
+                    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+                        <header class="w3-container w3-blue"> 
+                            <span onclick="UpdateMP();" 
+                                  class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
+                            <h2>Instellingen</h2>
+                        </header>
+
+                        <div class="w3-bar w3-border-bottom">
+                            <button class="tablink tablink3 w3-bar-item w3-button" onclick="openPanel(event, 'GenSetMP')">Algemeen</button>
+                            <button class="tablink tablink3 w3-bar-item w3-button" onclick="openPanel(event, 'NotifSetMP')">Notificaties</button>
+                        </div>
+
+                        <div id="GenSetMP" class="w3-container city">
+                            <div style="margin-bottom:1%; margin-top:1%">
+                                Algemene instellingen.
+                            </div>
+                            <div>
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td><button style="width:25%" onclick="changePWVisible()" id="changePWRowBtn" class="btn btn-primary btn-block">Wachtwoord wijzigen</button></td>
+                                    </tr>
+                                    <tr id="changePWRow" style="display:none">
+                                        <td>
+                                            <table style="max-width:100%">
+                                                <tr>
+                                                    <td><label for="oldPW" class="control-label">Oud wachtwoord: </label></td>
+                                                    <td><input type="password" name="oldPW" id="oldPW"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="newPW" class="control-label">Nieuw wachtwoord: </label></td>
+                                                    <td><input type="password" name="newPW" id="newPW"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="newPWr" class="control-label">Herhaal nieuw wachtwoord: </label></td>
+                                                    <td><input type="password" name="newPWr" id="newPWr"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><button onclick="changePWInvisible()" class="btn btn-primary btn-block">Annuleren</button></td>
+                                                    <td><button onclick="saveNewPassword()" class="btn btn-primary btn-block">Wijzigen</button></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="changePWMessage"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table style="max-width:100%">
+                                                <tr>
+                                                    <th style="width:15%"></th>
+                                                    <th style="width:25%"></th>
+                                                    <th style="width:25%"></th>
+                                                    <th style="width:15%"></th>
+                                                    <th style="width:20%"></th>
+                                                </tr>
+                                                <tr id="profilepicRow">
+                                                    <td><label for="profilepicurl" class="control-label">Foto url: </label></td>
+                                                    <td colspan="2"><input class="settingsText" style="width:100%" type="text" name="profilepicurl" id="profilepicurl" placeholder="Voer een link in"/></td>
+                                                    <td><button onclick="saveProfilePic()" class="btn btn-primary btn-block">Opslaan</button></td>
+                                                    <td id="profilepicMessage"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="newName" class="control-label">Naam wijzigen: </label></td>
+                                                    <td><input class="settingsText" type="text" name="newFirstName" id="newFirstName" placeholder="Nieuwe voornaam"/></td>
+                                                    <td><input class="settingsText" type="text" name="newLastName" id="newLastName" placeholder="Nieuwe familienaam"/></td>
+                                                    <td><button onclick="saveNewName()" class="btn btn-primary btn-block">Opslaan</button></td>
+                                                    <td id="changeNameMessage"></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button style="width:25%" onclick="deleteAccount()" id="deleteAccountBtn" class="btn btn-primary btn-block">Account verwijderen</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="deleteAccountMessage"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="NotifSetMP" class="w3-container city">
+                            <div style="margin-bottom:1%; margin-top:1%" 
+                                 id ="messenger" class="fb-send-to-messenger" 
+                                 messenger_app_id="802607779909180" 
+                                 page_id="212285242603511" 
+                                 color="blue" 
+                                 size="standard"
+                                 data-ref="TEST"
+                                 enforce_login="false">
+                            </div> 
+                            <div style="margin-bottom:1%; margin-top:1%">
+                                Instellingen voor notificaties. Voeg bij elk gedeelte het notificatie-type en de uren toe (tussen 0u en 23u) waarop u dagelijks notificaties wilt ontvangen over dat gedeelte.
+                            </div>
+                            <div>
+                                <table id="notifTypeTable" style="width:100%">
+                                    <tr>
+                                        <th style="width:20%"></th>
+                                        <th style="width:6%"></th>
+                                        <th style="width:6%"></th>
+                                        <th style="width:5%"></th>
+                                        <th style="width:15%; text-align:center;">Messenger <span class="glyphicon glyphicon-question-sign" title="Voor Messenger-notificaties moet de link met Messenger gelegd zijn.&#013;Klik daarvoor op de bovenstaande knop. Controleer nadien je messenger-berichten"></span></th>
+                                        <th style="width:15%; text-align:center;">E-mail</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="glyphicon glyphicon-question-sign" title="Hier worden notificaties gestuurd over de weergegeven parkings in 'Mijn Paneel'"> </span><label for="parkingNotifCheck" class="control-label"> Parkings: </label></td>
+                                        <td><select id="parkingHourField"></select></td>
+                                        <td><select id="parkingMinuteField"></select></td>
+                                        <td><i class="fa fa-plus" style="color:green" onclick="addParkingHour()"></i></td>
+                                        <td align="center"><input type="checkbox" id="ParkingMessengerBox" onchange="updateNotifs()"></td>
+                                        <td align="center"><input type="checkbox" id="ParkingMailBox" onchange="updateNotifs()"></td>
+                                        <td id="parkingHourMessage"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                            <table>
+                                                <tr id="parkingHourRow">
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="glyphicon glyphicon-question-sign" title="Hier worden notificaties gestuurd over de weergegeven BlueBike parkings in 'Mijn Paneel'"> </span><label for="BBparkingNotifCheck" class="control-label">BlueBike Parkings: </label></td>
+                                        <td><select id="BBparkingHourField"></select></td>
+                                        <td><select id="BBparkingMinuteField"></select></td>
+                                        <td><i class="fa fa-plus" style="color:green" onclick="addBBParkingHour()"></i></td>
+                                        <td align="center"><input type="checkbox" id="BBParkingMessengerBox" onchange="updateNotifs()"></td>
+                                        <td align="center"><input type="checkbox" id="BBParkingMailBox" onchange="updateNotifs()"></td>
+                                        <td id="BBparkingHourMessage"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                            <table>
+                                                <tr id="BBparkingHourRow">
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="glyphicon glyphicon-question-sign" title="Hier worden notificaties gestuurd over de weergegeven routes in 'Mijn Routes'"> </span><label for="CoyoteNotifCheck" class="control-label">Routes: </label></td>
+                                        <td><select id="CoyoteHourField"></select></td>
+                                        <td><select id="CoyoteMinuteField"></select></td>
+                                        <td><i class="fa fa-plus" style="color:green" onclick="addCoyoteHour()"></i></td>
+                                        <td align="center"><input type="checkbox" id="CoyoteMessengerBox" onchange="updateNotifs()"></td>
+                                        <td align="center"><input type="checkbox" id="CoyoteMailBox" onchange="updateNotifs()"></td>
+                                        <td id="CoyoteHourMessage"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                            <table>
+                                                <tr id="CoyoteHourRow">
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="glyphicon glyphicon-question-sign" title="Hier worden notificaties gestuurd over het weer"> </span><label for="WeatherNotifCheck" class="control-label">Weer: </label></td>
+                                        <td><select id="WeatherHourField"></select></td>
+                                        <td><select id="WeatherMinuteField"></select></td>
+                                        <td><i class="fa fa-plus" style="color:green" onclick="addWeatherHour()"></i></td>
+                                        <td align="center"><input type="checkbox" id="WeatherMessengerBox" onchange="updateNotifs()"></td>
+                                        <td align="center"><input type="checkbox" id="WeatherMailBox" onchange="updateNotifs()"></td>
+                                        <td id="WeatherHourMessage"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                            <table>
+                                                <tr id="WeatherHourRow">
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="glyphicon glyphicon-question-sign" title="Hier worden notificaties gestuurd over de opgeslagen favorieten in 'Mijn NMBS'"> </span><label for="TrainNotifCheck" class="control-label">Treinen: </label></td>
+                                        <td><input type="checkbox" name="TrainNotifCheck" id="TrainNotifCheck" onchange="setTrainNotifs()"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td align="center"><input type="checkbox" id="TrainMessengerBox" onchange="updateNotifs()"></td>
+                                        <td align="center"><input type="checkbox" id="TrainMailBox" onchange="updateNotifs()"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="w3-container w3-light-grey w3-padding">
+                            <button class="w3-btn w3-right w3-white w3-border" 
+                                    onclick="UpdateMP();">Sluiten</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="w3-container" onkeydown = "if (event.keyCode === 27)
+                                                           UpdateMP();">
+                <div id="id04" class="w3-modal">
+                    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+                        <header class="w3-container w3-blue"> 
+                            <span onclick="UpdateMP();" 
+                                  class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
+                            <h2>Info toevoegen</h2>
+                        </header>
+
+                        <div class="w3-bar w3-border-bottom">
+                            <button class="tablink tablink4 w3-bar-item w3-button" onclick="openPanel(event, 'Coyote')">Coyote</button>
+                        </div>
+                        <div id="Coyote" class="w3-container city">
+                            <div style="padding-bottom:10px; padding-top:10px">Voeg uw gevolgde routes toe aan de rechterkolom.</div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-10" style="padding-left:0px; padding-right:0px;">
+                                        <input type="text" id="CoyoteInput" onkeyup="autoComplete('CoyoteInput', 'CoyoteTable')" placeholder="Search for names..">
+                                    </div>
+                                    <div class="col-sm-2" style="padding-left:0px; padding-right:0px;">
+                                        <button onClick="CoyotePlus();" style="height:50px; width:100%;"><span class="glyphicon glyphicon-plus"></span></button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="table-wrapper">
+                                            <div id="table-scroll-large">
+                                                <table id="CoyoteTable">
+                                                    <tr class="header">
+                                                        <th style="width:100%;">Name</th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-10" style="padding-left:0px; padding-right:0px;">
+                                        <input type="text" id="CoyoteInput2" onkeyup="autoComplete('CoyoteInput2', 'CoyoteTable2')" placeholder="Search for names..">
+                                    </div>
+                                    <div class="col-sm-2" style="padding-left:0px; padding-right:0px">
+                                        <button onClick="CoyoteMin();" style="height:50px; width:100%;"><span class="glyphicon glyphicon-minus"></span></button>
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="table-wrapper">
+                                            <div id="table-scroll-large">
+                                                <table id="CoyoteTable2">
+                                                    <tr class="header">
+                                                        <th style="width:100%;">Name</th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-container w3-light-grey w3-padding">
+                            <button class="w3-btn w3-right w3-white w3-border" 
+                                    onclick="UpdateMP();">Sluiten</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="w3-container" onkeydown = "if (event.keyCode === 27)
+                                                           UpdateMP();">
+                <div id="id05" class="w3-modal">
+                    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+                        <header class="w3-container w3-blue"> 
+                            <span onclick="UpdateMP();" 
+                                  class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
+                            <h2>Eindstation toevoegen</h2>
+                        </header>
+
+                        <div class="w3-bar w3-border-bottom">
+                            <button class="tablink tablink5 w3-bar-item w3-button" onclick="openPanel(event, 'NMBSDest')">NMBS</button>
+                        </div>
+
+
+
+                        <div id="NMBSDest" class="w3-container city">
+                            <div style="padding-bottom:10px; padding-top:10px">Selecteer uw bestemming.</div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-10" style="padding-left:0px; padding-right:0px;">
+                                        <input type="text" id="nmbsInput2" onkeyup="autoComplete('nmbsInput2', 'myTable2')" placeholder="Search for names..">
+                                    </div>
+                                    <div class="col-sm-2" style="padding-left:0px; padding-right:0px;">
+                                        <button onClick="DestinationAdd();" style="height:50px; width:100%;"><span class="glyphicon glyphicon-plus"></span></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="table-wrapper">
+                                            <div id="table-scroll-large">
+                                                <table id="myTable2">
+                                                    <tr class="header">
+                                                        <th style="width:100%;">Name</th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="w3-container w3-light-grey w3-padding">
+                            <button class="w3-btn w3-right w3-white w3-border" 
+                                    onclick="UpdateMP();">Sluiten</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- favorieten van NMBS -->
+            <div class="w3-container" onkeydown = "if (event.keyCode === 27)
+                                                           UpdateMP();">
+
+                <div id="id06" class="w3-modal">
+                    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+                        <header class="w3-container w3-blue"> 
+                            <span onclick="UpdateMP();" 
+                                  class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
+                            <h2>Beginstation toevoegen</h2>
+                        </header>
+
+                        <div class="w3-bar w3-border-bottom">
+                            <button class="tablink tablink6 w3-bar-item w3-button" onclick="openPanel(event, 'NMBSFav')">NMBS</button>
+                        </div>
+
+
+
+                        <div id="NMBSFav" class="w3-container city">
+                            <div style="padding-bottom:10px; padding-top:10px">Hier kan u trein routes inladen en verwijderen!</div>
+                            <div id="table-wrapper">
+                                <div id="table-scroll-large">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20%">Van</th>
+                                                <th style="width:20%">Naar</th>
+                                                <th style="width:20%">Tijd</th>
+                                                <th style="width:20%">Inladen</th>
+                                                <th style="width:20%">Verwijderen</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="NMBSFavTable"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="w3-container w3-light-grey w3-padding">
+                            <button class="w3-btn w3-right w3-white w3-border" 
+                                    onclick="UpdateMP();">Sluiten</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- favorieten van De Lijn -->
+            <div class="w3-container" onkeydown = "if (event.keyCode === 27)
+                                                           UpdateMP();">
+
+                <div id="id07" class="w3-modal">
+                    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+                        <header class="w3-container w3-blue"> 
+                            <span onclick="UpdateMP();" 
+                                  class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
+                            <h2>Favoriete halte toevoegen</h2>
+                        </header>
+
+                        <div class="w3-bar w3-border-bottom">
+                            <button class="tablink tablink7 w3-bar-item w3-button" onclick="openPanel(event, 'LijnFav')">De Lijn</button>
+                        </div>
+
+
+
+                        <div id="LijnFav" class="w3-container city">
+                            <div style="padding-bottom:10px; padding-top:10px">Hier kan u haltes van De Lijn inladen en verwijderen!</div>
+                            <div id="table-wrapper">
+                                <div id="table-scroll-large">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="width:60%">Halte</th>
+                                                <th style="width:20%">Inladen</th>
+                                                <th style="width:20%">Verwijderen</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="LijnFavTable"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="w3-container w3-light-grey w3-padding">
+                            <button class="w3-btn w3-right w3-white w3-border" 
+                                    onclick="UpdateMP();">Sluiten</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <script>
+            //document.getElementsByClassName("tablink")[0].click();
+
+            function openPanel(evt, cityName) {
+                var i, x, tablinks;
+                x = document.getElementsByClassName("city");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablink");
+                for (i = 0; i < x.length; i++) {
+                    tablinks[i].classList.remove("w3-light-grey");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.classList.add("w3-light-grey");
+            }
+            function clickedTab(id, link) {
+                document.getElementById(id).style.display = 'block';
+                document.getElementsByClassName(link)[0].click();
+            }
+        </script>
+
+        <script src="js/constants.js"></script>
+        <script src="js/Mustache.min.js"></script>
+        <script src="js/myPageLoader.js"></script>
+        <script src="js/FillWeather.js"></script>
+        <script src="js/FillDeLijnPersonal.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtP7lQ9nWyqzGfodgnpDRxOxTm5tTIX7E"></script>
+        <script src="js/myPageSettings.js"></script>
+        <script src="js/saveLocalStorage.js"></script>
+        <script src="js/myPageCoyote.js"></script>
+        <script src="js/myPageModal.js"></script>
+        <script src="js/myPageDeLijn.js"></script>
+        <script src="js/myPageNMBS.js"></script>
+        <script src="js/myPageParkings.js"></script>
+        <script src="js/myPageBlueBike.js"></script>
+        <script id="trains-template" type="text/template">
+            {{#.}}
+
+            <tr class="{{trclass}}" style="display:{{display}}">
+            <td colspan="3" >[{{routeType}}] Perron {{platf}} in  {{station}}</td>
+            </tr>
+            <tr  class="{{trclass}}" style="display:{{display}} !important">
+            <td ><img src={{img}} class="media-object" style="width:100%"></td>
+            <td >{{number}}</td>
+            <td >{{deptime}} + {{delay}}'</td>
+            </tr>
+            <tr class="{{trclass}}" style="display:{{display}}; !important">
+            <td colspan="3" style="border-bottom: 1px solid black; !important">Richting {{dest}}</td>
+            <td rowspan="2" style="display:{{via}}"><button class="btn btn-primary" id="{{btnid}}" style="display:{{via}}" onclick="toggleVia({{amount}})">Toon </br> overstappen</button></td>
+            </tr>
+
+            {{/.}}
+        </script>
+        <script id="coyote-template" type="text/template">
+            {{#.}}
+
+            <tr>
+            <td style="width: 5%;">
+
+            </td>
+            <td style="width: 60%;">
+            {{route}}
+            </td>
+            <td style="width:5%;">
+            <span id="spanCoyoteClick" onClick="openCoyoteModal({{idx}});" class="glyphicon glyphicon-info-sign clickable"></span>
+            </td>
+            <td  style="width: 15%;">
+
+            {{minutes}} vertraging
+
+            </td>
+            <td style="width:10%;">
+            </tr>
+            {{/.}}
+        </script>
+        <script id="NMBSFavo-template" type="text/template">
+            {{#.}} 
+            <tr>
+            <td>{{origin}}</td>
+            <td>{{destination}}</td>
+            <td>{{time}}</td>
+            <td><button class="btn btn-primary" onclick="NMBSLoadFav({{index}})">Laden</button></td>
+            <td><span class="glyphicon glyphicon-minus clickable" onclick="NMBSDeleteFav({{index}})"></span></td>
+            </tr>
+            {{/.}}
+        </script>
+        <script id="LijnFavo-template" type="text/template">
+            {{#.}}                         
+            <tr>
+            <td>{{stop}}</td>
+            <td><button class="btn btn-primary" onclick="LijnLoadFav({{index}})">Laden</button></td>
+            <td><span class="glyphicon glyphicon-minus clickable" onclick="LijnDeleteFav({{index}})"></span></td>
+            </tr>
+            {{/.}}
+        </script>
+        <script id="bluebike-template" type="text/template">
+            {{#.}}
+            <tr>
+            <td style="width: 10%; padding-bottom: 5px"><img src="img/bluebike.jpg" class="media-object" style="width:100%">
+            
+            </td>
+            <td>
+            <div>{{station}}</div>
+            <div class="progress my-progress">
+            <div class="progress-bar progress-bar-success my-progress-bar" role="progressbar" style="width:{{successWidth}}%">{{successCount}}
+            </div>
+            <div class="progress-bar progress-bar-warning my-progress-bar" role="progressbar" style="width:{{warningWidth}}%">{{warningCount}}
+            </div>
+            <div class="progress-bar progress-bar-danger my-progress-bar" role="progressbar" style="width:{{dangerWidth}}%">{{dangerCount}}
+            </div>
+            </div>
+            <td style="width:2%; font-size: 20px; padding-top:10px; padding-left:10px">
+            <span class="glyphicon glyphicon-minus clickable"
+            onclick="localStorage.setItem('{{function}}','false'); UpdateMP(); fillBlueBikeTab(); fillBlueBikeMyPage(BlueBike);"></span></td>
+            </tr>
+            {{/.}}
+        </script>
+        <script id="parkings-template" type="text/template">
+            {{#.}}   
+             <tr>
+             <td style="width:10%; padding-bottom:5px">
+             <img src="img/parking.png" class="media-object" style="width:100%">
+             </td>
+             <td>
+             <div>{{parkingName}}</div>
+             <div class="progress my-progress">
+             <div class="{{progressClass}}" role="progressbar" aria-valuemin="0" aria-valuemax="{{totalCap}}" 
+             aria-valuenow="{{procent}}" style="width:{{procent}}%">{{procentFixed}}<span class="sr-only"></span></div></div> 
+             </td>
+             <td style="width:2%; font-size: 20px; padding-top:10px; padding-left:10px">
+             <span class="glyphicon glyphicon-minus clickable" 
+     onclick="localStorage.setItem('{{functionLS}}','false'); UpdateMP(); fillParkingTab(); "></span>
+             </td>
+             </tr>
+            {{/.}}
+        </script>
+        <script id="bus-template" type="text/template">
+            {{#.}}
+            <tr>
+            <td colspan="6">[{{stop}}] Perron {{per}}</td>
+            </tr>
+            <tr>
+            <td style="border-bottom:none;">
+            <div class="PublicId" style="text-shadow: 0 0 px
+            #FFFFFF; background-color:{{bgcol}}; color: {{fgcol}};
+            border: {{bgcoled}} 3px solid;">{{id}}</div>
+            </td>
+            <td colspan="3">{{target}}</td>
+
+            <td  colspan="2">{{time}} {{#hasDelay}}
+            {{#posDelay}}
+            +{{delay}}'
+            {{/posDelay}}
+            {{^posDelay}}
+            {{delay}}'
+            {{/posDelay}}
+            {{/hasDelay}}
+            </td>       
+            </tr>
+            <tr style="border-bottom: 1px solid black;">
+            <td><img src={{img}} class="media-object" style="width:50%"></td>
+            <td colspan="5" class="small">{{desc}}</td>
+            </tr>
+
+
+            {{/.}}
+        </script>
+    </div>
+    <div id="myPageLogin" style="display:none;">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Toegang geweigerd</h3>
+                    </div>
+                    <div class="panel-body">
+                        U moet inloggen alvorens u deze pagina kan gebruiken! Keer terug naar
+                        <a href="index.html">de index</a>.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</body>
+
+</html>
+

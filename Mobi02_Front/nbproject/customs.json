@@ -1,0 +1,13 @@
+{
+    "elements": {
+        "fb:login-button": {}
+    },
+    "attributes": {
+        "onlogin": {
+            "context": "div"
+        },
+        "messenger_app_id": {
+            "context": "div"
+        }
+    }
+}

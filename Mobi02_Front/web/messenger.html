@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Mobi02 Messenger Link</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <!--<link href="css/custom.css" rel="stylesheet"> -->
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+
+        <style>
+            #form{
+                margin-left: 20%;
+                margin-right: 20%;
+            }
+
+        </style>
+    </head>
+
+
+    <body>
+
+        <script>
+            //extra info: https://developers.facebook.com/docs/facebook-login/web
+
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: 802607779909180,
+                    xfbml: true,
+                    version: 'v2.9'
+                });
+                FB.AppEvents.logPageView();
+
+//                FB.getLoginStatus(function (response) {
+//                    statusChangeCallback(response);
+//                });
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            function checkLoginState() {
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+            }
+
+
+
+
+        </script>
+
+        <script>
+            function getParameterByName(name) {
+                url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                        results = regex.exec(url);
+                if (!results)
+                    return null;
+                if (!results[2])
+                    return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+
+        </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/packery.pkgd.min.js"></script>
+        <script src="js/Settings.js"></script>
+        <script src="js/constants.js"></script>
+
+        <div class="container" id="form">
+            <div class="col-xs-10" >
+                <h1>Gebruiker Verificatie</h1>
+                <p>Log in met Facebook, of met je persoonlijk account. Dit proces linkt jouw Messenger-info met de instellingen op je persoonlijke pagina.</p>
+                <div onlogin="checkLoginState()" class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
+                <br>
+                <br>
+                <div id="loginError"></div>
+                <form class="form-horizontal" id="loginForm" method="post">
+                    <fieldset>
+                        <input id="loginName" name="username" type="text" placeholder="E-mailadres" class="form-control input-md">
+                        <input id="loginPW"  name="userpass" type="password" placeholder="Wachtwoord" class="form-control input-md">
+                        <input id="fbId"  name="fb_id" type="hidden" >
+                        <input type="hidden" id="redirect_url" name="redirect"/>
+                        <input type="hidden" id="link_token" name="token"/>
+                        <br>
+                        <input type="submit" value="log in"/>
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#loginForm').attr('action', host + "/back/facebookLink");
+                $('#redirect_url').attr('value', getParameterByName('redirect_uri'));
+                $('#link_token').attr('value', getParameterByName('account_linking_token'));
+                //$('#fbId').attr('disabled', true);
+            });
+
+            function statusChangeCallback(response) {
+                //console.log('statusChangeCallback');
+                //console.log(response);
+                // The response object is returned with a status field that lets the
+                // app know the current login status of the person.
+                // Full docs on the response object can be found in the documentation
+                // for FB.getLoginStatus().
+                if (response.status === 'connected') {
+                    FB.api('/me', {fields: 'name, email, picture'}, function (APIresponse) {
+                        //console.log(APIresponse);
+                        var page_id = APIresponse.id;
+                        //$('#fbId').val(page_id);
+                        $('#fbId').attr('value',page_id);
+                        $('#loginName').attr('disabled', true);
+                        $('#loginPW').attr('disabled', true);
+                        $('#loginForm').submit();
+//            var firstName = fullName.split(' ').slice(0, 1).join(' ');
+//            var lastName = fullName.split(' ').slice(1).join(' ');
+//            console.log('Good to see you, ' + firstName + '. Your last name is: ' + lastName);
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            }
+
+        </script>
+
+    </body>
+</html>

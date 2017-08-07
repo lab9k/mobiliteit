@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Mobiliteit Gent</title>
+        <meta charset="UTF-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/img/carside.png">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+
+    </head>
+
+    <body>
+        <script>
+            //extra info: https://developers.facebook.com/docs/facebook-login/web
+
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: 802607779909180,
+                    xfbml: true,
+                    version: 'v2.9'
+                });
+                FB.AppEvents.logPageView();
+
+//                FB.getLoginStatus(function (response) {
+//                    statusChangeCallback(response);
+//                });
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/packery.pkgd.min.js"></script>
+        <script src="js/Settings.js"></script>
+
+        <nav class="navbar navbar-inverse my-navbar navbar-static-top">
+            <div class="container-fluid" style="padding-left: 0px">
+                <ul class="nav navbar-nav my-navbar" style="padding-right: 10px;">
+                    <li><img src="img/GentLogo.png" style="height:50px"></li>
+                </ul>
+                <div class="navbar-header">
+                    <a id="settingsButton" class="navbar-brand clickable navbarText" onclick="toggleNav()" >
+                        <span class="glyphicon glyphicon-cog"></span>
+                        Instellingen
+                    </a>
+                </div>
+                <ul class="nav navbar-nav my-navbar">
+                    <li class="my-active"><a href="#" class="navbarText">Overzicht</a></li>
+                    <li id="myPageHeader"></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <!--                <li id="saveLocalStorageButton" style="display:none"><a class="navbarText clickable" onclick="postLocalStorage();"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a></li>-->
+                    <li id="refreshHeader"></li>
+                    <li id="registerHeader"></li>
+                    <li id="loginHeader"></li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="mySidenav" class="sidenav" style = "padding-left: 0px !important">
+            <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">&times;</a>
+            <form>
+                <label>Weer te geven panelen</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id ="MapBox"  onchange="toggleMain()">
+                        Kaart
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id ="ParkingBox"  onchange="toggleMain()">
+                        Parkings
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id="GraphBox"  onchange="toggleMain()">
+                        Tellingen R40
+                    </label>
+                </div> 
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id ="BlueBikeBox"  onchange="toggleMain()">
+                        Blue Bike
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id ="WeerBox"  onchange="toggleMain()">
+                        Weer
+                    </label>
+                </div> 
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id="TreinenBox"  onchange="toggleMain()">
+                        Treinen
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id="GipodBox"  onchange="toggleMain()">
+                        Gipod Wegenwerken
+                    </label>
+                </div> 
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id="WazeBox"  onchange="toggleMain()">
+                        Waze Wegenwerken
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id="WaylayBox"  onchange="toggleMain()">
+                        Files
+                    </label>
+                </div> 
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id="IncidentenBox"  onchange="toggleMain()">
+                        Incidenten
+                    </label>
+                </div> 
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked data-toggle="toggle" data-width="120px" id="R40Box"  onchange="toggleMain()">
+                        R40
+                    </label>
+                </div> 
+                <label>Overige functies</label>
+                <div class="checkbox">
+                    <label>
+                        <input class="my-input" checked data-toggle="toggle" data-width="120px" id ="DragAndDropBox" type="checkbox" onchange="toggleDragAndDrop()">
+                        Drag and drop
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Aantal kolommen
+                        <input id ="colbar" class="roundbar" type="range" min="2" max="4" value="3" onchange="changeCols(this.value)"/>
+                        <span id="colcounter">3</span>
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input data-off="Light" data-on="Dark" type="checkbox" data-toggle="toggle" data-width="120px" onchange="toggleCSS()" id="CSSSwitchBox">
+                        Thema
+                    </label>
+                </div>
+                <div>
+                    <label>Selecteer een achtergrond</label>
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0"></li>
+                            <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item">
+                                <img src="img/background0.jpg" alt="Grijs">
+                            </div>
+
+                            <div class="item active">
+                                <img src="img/background1.jpg" alt="Achtergrond 1">
+                            </div>
+
+                            <div class="item">
+                                <img src="img/background2.jpg" alt="Achtergrond 2">
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+
+        <!-- myLogin -->
+        <div id="myLogin" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" >Log in</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="col-md-5" >
+                            <div onlogin="checkLoginState()" class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
+                        </div>
+                        <div class="col-md-7" >
+                            <div id="loginError"></div>
+                            <form class="form-horizontal">
+                                <fieldset>
+                                    <input id="loginName"  type="text" placeholder="E-mailadres" class="form-control input-md">
+                                    <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxRemember" value="1"><small> Onthoud me</small></div>
+                                    <input id="loginPW"  type="password" placeholder="Wachtwoord" class="form-control input-md">
+                                    <!-- <div class="spacing"><a href="#"><small> Wachtwoord vergeten?</small></a><br/></div>-->
+                                </fieldset>
+                            </form>
+                            <button id="singlebutton" onclick="logIn();"  class="btn btn-info btn-sm pull-right">Log In</button>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer" style="border:none;">
+                        <div style="padding-bottom:5%;">
+                            <button type="button" data-toggle="modal" data-target="#myRegister" class="btn btn-primary" style="float:left !important">Registreer</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- myRegister -->
+        <div id="myRegister" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" >Registreer</h4>
+                    </div>  
+                    <div class="modal-body" id="registerBody">
+                        <div id="registerError">
+
+                        </div>
+                        <form class="" method="post" action="#">
+
+
+                            <div class="form-group">
+                                <label for="firstname" class="cols-sm-2 control-label">Voornaam</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="firstname" id="firstname"  placeholder="Voer uw voornaam in"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="firstname" class="cols-sm-2 control-label">Familienaam</label>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="lastname" id="lastname"  placeholder="Voer uw familienaam in"/>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2 control-label">E-mail</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" name="email" id="email"  placeholder="Voer uw e-mailadres in"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="cols-sm-2 control-label">Wachtwoord</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                        <input type="password" class="form-control" name="password" id="password"  placeholder="Voer uw wachtwoord in"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirm" class="cols-sm-2 control-label">Herhaal Wachtwoord</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                        <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Voer uw wachtwoord opnieuw in"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <button onclick="registerDatabase();"  class="btn btn-primary btn-lg btn-block">Registreer</button>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- myNMBS -->
+        <div id="myNMBS" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" >Treinen informatie</h4>
+                    </div>
+                    <div class="modal-body" style="height:200px;">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--
+                                Treinen weergeven met X aantal minuten vertraging
+                                Aantal treinen max weergeven
+                                Abboneren op route
+                                -->
+                                Nog te implementeren
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border:none;">
+                        <div style="padding-bottom:5%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- myParking -->
+        <div id="myParking" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" >Parking informatie</h4>
+                    </div>
+                    <div class="modal-body" >
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="cols-sm-2 control-label">Parkings weergeven:</label>
+                                <button onclick="ToggleAllParkings()"  id="button" class="btn btn-primary">Vink alles aan</button>
+                                <label class="my-label"><input class="my-input" checked data-toggle="toggle" data-width="60px" id = "VrijdagmarktBox" type="checkbox" onchange="ToggleParking()"> Vrijdagmarkt</label>
+                                <label class="my-label"><input class="my-input" checked data-toggle="toggle" data-width="60px" id = "ReepBox" type="checkbox" onchange="ToggleParking()"> Reep</label>
+                                <label class="my-label"><input class="my-input" checked data-toggle="toggle" data-width="60px" id = "SavaanstraatBox" type="checkbox" onchange="ToggleParking()"> Savaanstraat</label>
+                                <label class="my-label"><input class="my-input" checked data-toggle="toggle" data-width="60px" id = "Sint-MichielsBox" type="checkbox" onchange="ToggleParking()"> Sint-Michiels</label>
+                                <label class="my-label"><input class="my-input" checked data-toggle="toggle" data-width="60px" id = "RamenBox" type="checkbox" onchange="ToggleParking()"> Ramen</label>
+                                <label class="my-label"><input class="my-input" checked data-toggle="toggle" data-width="60px" id = "Sint-PieterspleinBox" type="checkbox" onchange="ToggleParking()"> Sint-Pietersplein</label>
+                                <label class="my-label"><input class="my-input" checked data-toggle="toggle" data-width="60px" id = "GentStPietersBox" type="checkbox" onchange="ToggleParking()"> Parking Gent St. Pieters</label>
+                                <label class="cols-sm-2 control-label">Weergave wijzigen:</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input checked data-off="#" data-on="%" type="checkbox" data-toggle="toggle" data-width="60px" onchange="toggleParkingBar()" id="ParkingBarBox">
+                                        Getallen of procenten
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- myBluebike -->
+        <div id="myBluebike" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" >Bluebike informatie</h4>
+                    </div>
+                    <div class="modal-body" >
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="cols-sm-2 control-label">Parkings weergeven:</label>
+                                <form>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" checked data-toggle="toggle" data-width="60px" onchange="ToggleBlueBike()" id="BBSintPietersBox">
+                                            Sint-Pieters
+                                        </label>
+
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" checked data-toggle="toggle" data-width="60px" onchange="ToggleBlueBike()" id="BBDampoortBox">
+                                            Dampoort
+                                        </label>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- myR40Graph -->
+        <div id="myR40Graph" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" >R40 tellingen informatie</h4>
+                    </div>
+                    <div class="modal-body" >
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="cols-sm-2 control-label">Grafiek weergeven:</label>
+                                <form>
+                                    <div class="checkbox">
+                                        <input data-width="100px" data-off="Tellingen" data-on="Reistijd" type="checkbox" data-toggle="toggle" onchange="toggleGraph()" id="GraphSwitchBox">
+                                        Tellingen of Reistijd
+                                    </div>
+                                    <div>
+                                        <select class="selectpicker show-tick" data-size="7" data-width="30%" data-style="btn-primary" id="R40DayPicker" onchange="selectChange()"></select>
+                                        Kies de dag waarvan u gegevens wil.
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- myWeer-->
+        <div id="myWeer" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" >Weer informatie</h4>
+                    </div>
+                    <div class="modal-body" >
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="cols-sm-2 control-label"></label>
+                                <form>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input data-width="100px"  data-off="km/u" data-on="mph" type="checkbox" data-toggle="toggle" onchange="toggleWind()" id="WindBox">
+                                            Windsnelheid uitdrukking
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input data-width="100px" data-off="Celcius" data-on="Fahrenheit" type="checkbox" data-toggle="toggle" onchange="toggleTemp()" id="TempBox">
+                                            Temperatuur uitdrukking
+                                        </label>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div id="main" class="row">
+            <div class="grid">
+                <div class="grid-sizer col-md-4"></div>
+                <!-- Map -->
+                <div id="mapitem" class="grid-item col-md-4">
+                    <div class="grid-item-content" id="MapMain">
+                        <div class="panel-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 10%">
+                                        <img id="dragIcon" src="img/maps.png" class="media-object" style="width:100%" title="Kaart">
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"  style="width:100%">Markeringen
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" style="width: 100%; padding-left: 15px">
+                                                <li><label><input id ="MapCoyoteBox" type="checkbox" onchange="checkCoyote()"> Coyote</label></li>
+                                                <li><label><input id ="MapParkingBox" type="checkbox" onchange="checkParking()"> Parking</label></li>
+                                                <li><label><input id ="MapBlueBikeBox" type="checkbox" onchange="checkBlueBike()"> BlueBike</label></li>
+                                                <li><label><input id ="MapR40Box" type="checkbox" onchange="checkR40()"> R40</label></li>
+                                                <li><label><input id ="MapWaylayBox" type="checkbox" onchange="checkWaylay()"> Waylay</label></li>
+                                                <li><label><input id ="MapWazeBox" type="checkbox" onchange="checkWaze()"> Waze Wegenwerken</label></li>
+                                                <li><label><input id ="MapGipodBox" type="checkbox" onchange="checkGipod()"> Gipod Wegenwerken</label></li>
+                                                <li><label><input id ="MapLocationBox" type="checkbox" onchange="checkMapLocation()"> Locatie</label></li>
+                                                <li><label><input id ="MapTrafficBox" type="checkbox" onchange="toggleTraffic()"> Verkeer</label></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <img id="zoomiconMap" src="img/zoomin.png" onclick="enlargeMap()" class="media-object" style="width:100%" title="Vergroot de kaart">
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                        <div class="jumbotron my-jumbotron">
+                            <div id="map" class="panel-body"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Parkings -->
+                <div class="grid-item col-md-4">
+                    <div class="grid-item-content" id="ParkingsMain">
+                        <div class="panel-heading my-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 10%; padding-bottom: 5px">
+                                        <img id="dragIcon" src="img/parking.png" class="media-object" style="width:100%" title="Parkings">
+                                    </td>
+                                    <td>
+                                        <div class="progress my-progress">
+                                            <div id="avgParkingFree" class="progress-bar my-progress-bar"  role="progressbar" aria-valuemin="0" aria-valuemax="100" >
+                                                <span class="sr-only"></span>
+                                            </div>
+                                            <div id="avgParkingUsed" class="progress-bar progress-bar-danger my-progress-bar"  role="progressbar" aria-valuemin="0" aria-valuemax="100" >
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 7%;">
+                                        <a href="#" data-toggle="modal" data-target="#myParking">
+                                            <span id="settingsIcon" class="glyphicon glyphicon-cog" title="Instellingen"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="jumbotron my-jumbotron">
+                            <div class="panel-body">
+                                <table style="width:100%;">
+                                    <tr style="border-bottom: 1px solid black;">
+                                        <th style="width: 60%">Bezetting</th>
+                                        <th style="width: 10%">Vrij</th> 
+                                        <th>Parking</th>
+                                    </tr>
+                                    <tr id="VrijdagmarktMain">
+                                        <td>
+                                            <div class="progress my-parking-bar">
+                                                <div id="P01" class="progress-bar progress-bar-success" role="progressbar" 
+                                                     aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span id="P01avail" class="label label-primary"> </span>
+                                        </td> 
+                                        <td class="clickable" onclick="centerParking(this)">P01 Vrijdagmarkt</td>
+                                    </tr>
+                                    <tr id="ReepMain">
+                                        <td>
+                                            <div class="progress my-parking-bar">
+                                                <div id="P02" class="progress-bar progress-bar-success" role="progressbar" 
+                                                     aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span id="P02avail" class="label label-primary"> </span>
+                                        </td> 
+                                        <td class="clickable" onclick="centerParking(this)">P02 Reep</td>
+                                    </tr>
+                                    <tr id="SavaanstraatMain">
+                                        <td>
+                                            <div class="progress my-parking-bar">
+                                                <div id="P04" class="progress-bar progress-bar-success" role="progressbar" 
+                                                     aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span id="P04avail" class="label label-primary"> </span>
+                                        </td> 
+                                        <td class="clickable" onclick="centerParking(this)">P04 Savaanstraat</td>
+                                    </tr>
+                                    <tr id="Sint-MichielsMain">
+                                        <td>
+                                            <div class="progress my-parking-bar">
+                                                <div id="P07" class="progress-bar progress-bar-success" role="progressbar" 
+                                                     aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span id="P07avail" class="label label-primary"> </span>
+                                        </td> 
+                                        <td class="clickable" onclick="centerParking(this)">P07 Sint-Michiels</td>
+                                    </tr>
+                                    <tr id="RamenMain">
+                                        <td>
+                                            <div class="progress my-parking-bar">
+                                                <div id="P08" class="progress-bar progress-bar-success" role="progressbar" 
+                                                     aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span id="P08avail" class="label label-primary"> </span>
+                                        </td> 
+                                        <td class="clickable" onclick="centerParking(this)">P08 Ramen</td>
+                                    </tr>
+                                    <tr id="Sint-PieterspleinMain">
+                                        <td>
+                                            <div class="progress my-parking-bar">
+                                                <div id="P10" class="progress-bar progress-bar-success" role="progressbar" 
+                                                     aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span id="P10avail" class="label label-primary"> </span>
+                                        </td> 
+                                        <td class="clickable" onclick="centerParking(this)">P10 Sint-Pietersplein</td>
+                                    </tr>
+                                    <tr id="GentStPietersMain">
+                                        <td>
+                                            <div class="progress my-parking-bar">
+                                                <div id="PNMBS" class="progress-bar progress-bar-success" role="progressbar" 
+                                                     aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span id="PNMBSavail" class="label label-primary"> </span>
+                                        </td> 
+                                        <td class="clickable" onclick="centerParking(this)">Parking Gent St. Pieters</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--R40Chart-->
+                <div id ="graphitem" class="grid-item col-md-4">
+                    <div class="grid-item-content" id="GraphMain">
+                        <div class="panel-heading">
+                            <table style="width:100%; color: black">
+                                <tr>
+                                    <td style="width: 10%">
+                                        <img id="dragIcon" src="img/carside.png" class="media-object" style="width:100%" title="Tellingen R40">
+                                    </td>
+                                    <td>
+                                        <select class="selectpicker show-tick" data-size="5" data-width="100%" data-style="btn-primary" data-live-search="true" id="R40Picker" onchange="selectChange()">
+                                        </select>
+                                    </td>
+                                    <td style="width: 7%">
+                                        <img id="zoomiconGraph" src="img/zoomin.png" onclick="enlargeGraph()" class="media-object clickable" style="width:100%" title="Vergroot de grafiek">
+                                    </td>
+                                    <td style="width: 7%;">
+                                        <a href="#" data-toggle="modal" data-target="#myR40Graph">
+                                            <span id="settingsIcon" class="glyphicon glyphicon-cog" title="Instellingen"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="jumbotron my-jumbotron">
+                            <div id="graph" class="panel-body">
+                                <canvas id="R40Chart" style="width:100%"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- BlueBike -->
+                <div class="grid-item col-md-4" >
+                    <div class="grid-item-content" id="BlueBikeMain">
+                        <div class="panel-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 20%; padding-bottom: 5px">
+                                        <img id="dragIcon" src="img/bluebike.jpg" class="media-object" style="width:100%" title="BlueBike">
+                                    </td>
+                                    <td>
+                                        <div class="progress my-progress">
+                                            <div id="avgFree" class="progress-bar progress-bar-success my-progress-bar" role="progressbar">
+                                            </div>
+                                            <div id="avgMaint" class="progress-bar progress-bar-warning my-progress-bar" role="progressbar">
+                                            </div>
+                                            <div id="avgUsed" class="progress-bar progress-bar-danger my-progress-bar" role="progressbar">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 7%;">
+                                        <a href="#" data-toggle="modal" data-target="#myBluebike">
+                                            <span id="settingsIcon" class="glyphicon glyphicon-cog" title="Instellingen"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="jumbotron my-jumbotron">
+                            <div class="panel-body">
+                                <table style="width:100%">
+                                    <tr style="border-bottom: 1px solid black;">
+                                        <th style="width: 75%">Bezetting</th>
+                                        <th>Parking</th>
+                                    </tr>
+                                    <tr id="BBSintPieters" style="display: true;">
+                                        <td>
+                                            <div class="progress my-parking-bar">
+                                                <div id="PietersFree" class="progress-bar progress-bar-success" role="progressbar">
+                                                </div>
+                                                <div id="PietersMaint" class="progress-bar progress-bar-warning" role="progressbar">
+                                                </div>
+                                                <div id="PietersUsed" class="progress-bar progress-bar-danger" role="progressbar">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="clickable" onclick="centerBBParking(this)">Sint-Pieters</td>
+                                    </tr>
+                                    <tr id="BBDampoort" style="display:true;">
+                                        <td>
+                                            <div class="progress my-parking-bar">
+                                                <div id="DampoortFree" class="progress-bar progress-bar-success" role="progressbar">
+                                                </div>
+                                                <div id="DampoortMaint" class="progress-bar progress-bar-warning" role="progressbar">
+                                                </div>
+                                                <div id="DampoortUsed" class="progress-bar progress-bar-danger" role="progressbar">
+                                                </div>
+                                            </div> 
+                                        </td>
+                                        <td class="clickable" onclick="centerBBParking(this)">Dampoort</td>
+                                    </tr>
+                                </table>
+
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width: 15px"><div class="greenbox"/></td>
+                                        <td>Vrij</td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="orangebox"/></td>
+                                        <td>In Onderhoud</td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="redbox"/></td>
+                                        <td>In Gebruik</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Trains -->
+                <div class="grid-item col-md-4">
+                    <div class="grid-item-content" id="TreinenMain">
+                        <div class="panel-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 20%">
+                                        <img id="dragIcon" src="img/nmbs.jpg" class="media-object" style="width:100%" title="Treinen">
+                                    </td>
+                                    <td>
+                                        <div class="progress my-progress">
+                                            <div id="trainDelayBar" class="progress-bar my-progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="jumbotron my-jumbotron">
+                            <div class="panel-body">
+                                <div id="table-wrapper">
+                                    <div id="table-scroll">
+                                        <table style="width:100%;" >
+                                            <thead>
+                                                <tr style="border-bottom: 1px solid black;">
+                                                    <th style="width:10%;"></th>
+                                                    <th style="width:15%;"></th>
+                                                    <th style="width:50%;"></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="trains_main"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Weer -->
+                <div class="grid-item col-md-4">
+                    <div class="grid-item-content" id="WeerMain">
+                        <div class="panel-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 20%">
+                                        <img id="dragIcon" src="img/weatherunderground.png" class="media-object" style="width:70%" title="Weer">
+                                    </td>
+                                    <td>
+                                        <div class="progress my-progress">
+
+                                            <div id="weatherbar" class="progress-bar my-progress-bar"  role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 7%;">
+                                        <a href="#" data-toggle="modal" data-target="#myWeer">
+                                            <span id="settingsIcon" class="glyphicon glyphicon-cog" title="Instellingen"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="jumbotron my-jumbotron">
+                            <div class="panel-body">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <th style="width: 35%"></th>
+                                        <th style="width: 15%"></th> 
+                                        <th style="width: 40%"></th>
+                                    </tr>
+                                    <tr>
+                                        <td  rowspan="3">
+                                            <img id="weatherimg" class="media-object" style="width:40%">
+                                        </td>
+                                        <td>
+                                            <img id="tempimg" class="media-object" style="width:30px"> 
+                                        </td> 
+                                        <td>
+                                            <div id="temp"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img id="windimg" class="media-object" style="width:30px"> 
+                                        </td>
+                                        <td>
+                                            <div id="wind"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img id="humidimg" class="media-object" style="width:30px"> 
+                                        </td>
+                                        <td>
+                                            <div id="humidity"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- wegenwerken -->
+                <div class="grid-item col-md-4">
+                    <div class="grid-item-content" id="IncidentenMain">
+                        <div class="panel-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 10%; padding-bottom: 5px">
+                                        <img id="dragIcon" src="img/alert.png" class="media-object" style="width:100%" title="Wegenwerken">
+                                    </td>
+                                    <td>
+                                        <div class="progress my-progress">
+                                            <div id="accidentsbar" class="progress-bar my-progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="jumbotron my-jumbotron">
+                            <div class="panel-body">
+                                <div id="table-wrapper">
+                                    <div id="table-scroll">
+                                        <table id="accidentsTable" style="width:100%;" >
+                                            <thead>
+                                                <tr style="border-bottom: 1px solid black;">
+                                                    <th style="width:15%;"><span class="text">Route</span></th>
+                                                    <th style="width:70%;"><span class="text">Type</span></th>
+                                                    <th><span class="text">Limiet</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="accidents_main"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- waylay files -->
+                <div class="grid-item col-md-4">
+                    <div class="grid-item-content" id="WaylayMain">
+                        <div class="panel-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 10%; padding-bottom: 5px">
+                                        <img id="dragIcon" src="img/trafficjam.png" class="media-object"  style="width:100%" title="Files">
+                                    </td>
+                                    <td>
+                                        <div class="progress my-progress">
+                                            <div id="waylaybar" class="progress-bar my-progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="jumbotron my-jumbotron">
+                            <div class="panel-body">
+                                <div id="table-wrapper">
+                                    <div id="table-scroll">
+                                        <table id="waylayTable" style="width:100%;" >
+                                            <thead>
+                                                <tr style="border-bottom: 1px solid black;">
+                                                    <th><span class="text">Straat</span></th>
+                                                    <th><span class="text">Type</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="waylaydelay_main"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--gipod wegenwerken-->
+                <div class="grid-item col-md-4">
+                    <div class="grid-item-content" id="GipodMain">
+                        <div class="panel-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 10%; padding-bottom: 5px">
+                                        <img id="dragIcon" src="img/roadworks.png" class="media-object"  style="width:100%" title="Wegenwerken">
+                                    </td>
+                                    <td>
+                                        <div class="progress my-progress">
+                                            <div id="gipodbar" class="progress-bar my-progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="jumbotron my-jumbotron">
+                            <div class="panel-body">
+                                <div id="table-wrapper">
+                                    <div id="table-scroll">
+                                        <table id="gipodTable" style="width:100%;" >
+                                            <thead>
+                                                <tr style="border-bottom: 1px solid black;">
+                                                    <th style="width:25%;"><span class="text">Begin</span></th>
+                                                    <th style="width:25%;"><span class="text">Eind</span></th>
+                                                    <th><span class="text">Beschrijving</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="gipod_main"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- wegenwerken -->
+                <div class="grid-item col-md-4">
+                    <div class="grid-item-content" id="WazeMain">
+                        <div class="panel-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 10%; padding-bottom: 5px">
+                                        <img id="dragIcon" src="img/roadworks.png" class="media-object" style="width:100%" title="Wegenwerken">
+                                    </td>
+                                    <td>
+                                        <div class="progress my-progress">
+                                            <div id="roadeventbar" class="progress-bar my-progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="jumbotron my-jumbotron">
+                            <div class="panel-body">
+                                <div id="table-wrapper">
+                                    <div id="table-scroll">
+                                        <table id="wazeTable" style="width:100%;" >
+                                            <thead>
+                                                <tr style="border-bottom: 1px solid black;">
+                                                    <th><span class="text">Straat</span></th>
+                                                    <th><span class="text">Stad</span></th>
+                                                    <th><span class="text">Type</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="roadevent_main"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- r40 en zijn vertraging -->
+                <div class="grid-item col-md-4">
+                    <div class="grid-item-content" id="R40Main">
+                        <div class="panel-heading">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width: 10%; padding-bottom: 5px">
+                                        <img id="dragIcon" src="img/trafficjam.png" class="media-object"  style="width:100%" title="Vertragingen">
+                                    </td>
+                                    <td>
+                                        <div class="progress my-progress">
+                                            <div id="trafficbar" class="progress-bar my-progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="jumbotron my-jumbotron">
+                            <div class="panel-body">
+                                <div id="table-wrapper">
+                                    <div id="table-scroll">
+                                        <table style="width:100%;" >
+                                            <thead>
+                                                <tr style="border-bottom: 1px solid black;">
+                                                    <th style="width:85%;"><span class="text">Route</span></th>
+                                                    <th><span class="text">Minuten</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="trafficjam_main"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <footer>
+                <img src="img/ugentlogo.png" style="height:4em">
+                <table style="float: right; color:Gainsboro; font-size: xx-small">
+                    <tr>
+                        <th colspan="2"  style="text-align:center;">Front end</th>
+                        <th colspan="2"  style="text-align:center;">Back end</th>
+                    </tr>
+                    <tr>
+                        <td>Arnout Vandersteen </td>
+                        <td ><a href="mailto:Arnout.Vandersteen@ugent.be">Arnout.Vandersteen@ugent.be</a></td>
+                        <td>Jana Wieme</td>
+                        <td ><a href="mailto:Jana.Wieme@ugent.be">Jana.Wieme@ugent.be</a></td>
+
+                    </tr>
+                    <tr>
+                        <td>Sven Delanoye </td>
+                        <td ><a href="mailto:Sven.Delanoye@ugent.be">Sven.Delanoye@ugent.be</a></td>
+                        <td>Ruben Vervust</td>
+                        <td ><a href="mailto:Ruben.Vervust@ugent.be">Ruben.Vervust@ugent.be</a></td>
+                    </tr>
+                </table>
+            </footer>
+        </div>
+
+
+
+        <!-- Scripts -->
+        <script src="js/constants.js"></script>
+        <script src="js/Mustache.min.js"></script>
+        <script src="js/ApiLoader.js"></script>
+        <script src="js/map.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtP7lQ9nWyqzGfodgnpDRxOxTm5tTIX7E&callback=initMap"></script>
+        <script src="js/FillBlueBike.js"></script>
+        <script src="js/FillCoyote.js"></script>
+        <script src="js/FillGipod.js"></script>
+        <script src="js/FillParking.js"></script>
+        <script src="js/FillTrains.js"></script>
+        <script src="js/FillWeather.js"></script>
+        <script src="js/FillWaze.js"></script>
+        <script src="js/FillWaylay.js"></script>
+        <script src="js/R40Chart.js"></script>
+        <script id="dragndrop" type="text/javascript" src="js/DragDrop.js"></script>
+        <script src="js/registration.js"></script>
+        <script src="js/ChangeCSS.js"></script>
+        <script src="js/saveLocalStorage.js"></script>
+
+
+
+        <!--Moustache-scripts-->
+        <script id="roadevent-template" type="text/template">
+            {{#.}}
+            <tr class="clickable" style="border-bottom: 1px solid black;">
+            <td>{{street}}</td>
+            <td>{{city}}</td>
+            <td>{{description}}</td>
+            </tr>
+            {{/.}}
+
+        </script>
+        <script id="waylaydelay-template" type="text/template">
+            {{#.}}
+            <tr class="clickable" style="border-bottom: 1px solid black;">
+            <td>{{street}}</td>
+            <td>{{subtype}}</td>
+            </tr>
+            {{/.}}
+        </script>
+        <script id="gipod-template" type="text/template">
+            {{#.}}
+            <tr class="clickable" style="border-bottom: 1px solid black;">
+            <td>{{begin}}</td>
+            <td>{{end}}</td>
+            <td>{{description}}</td>
+            </tr>
+            {{/.}}
+        </script>
+        <script id="trafficjam-template" type="text/template">
+            {{#.}}
+            <tr style="border-bottom: 1px solid black;">
+            <td>{{route}}</td>
+            <td align="right">{{minutes}}</td>
+            </tr>
+            {{/.}}
+        </script>
+        <script id="accidents-template" type="text/template">
+            {{#.}}
+            <tr class="clickable" style="border-bottom: 1px solid black;">
+            <td>{{street}}</td>
+            <td>{{type}}</td>
+            <td align="right">{{speed}}</td>
+            </tr>
+            {{/.}}
+        </script>
+        <script id="trains-template" type="text/template">
+            {{#.}}
+            <tr>
+            <td colspan="4" >[{{station}}] Perron {{platf}}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid black;">
+            <td><img src={{img}} class="media-object" style="width:100%"></td>
+            <td>{{number}}</td>
+            <td>{{dest}}</td>
+            <td>{{deptime}} + {{delay}}'</td>
+            </tr>
+            {{/.}}
+        </script>
+
+    </body>
+
+</html>
